@@ -25,7 +25,7 @@ class SignUpViewModel : ViewModel() {
             if (user.isSignUpFieldEmpty()) {
                 _registerResponse.postValue(
                     AuthState(
-                        Error(message = "Fields cannot be empty!"),
+                        Error(message = "Vui lòng điền đầy đủ thông tin!"),
                         null
                     )
                 )
@@ -34,7 +34,7 @@ class SignUpViewModel : ViewModel() {
             if (!user.isValidEmail()) {
                 _registerResponse.postValue(
                     AuthState(
-                        Error(message = "Hãy nhập địa chỉ email hợp lệ!"),
+                        Error(message = "Địa chỉ email hợp lệ!"),
                         null
                     )
                 )

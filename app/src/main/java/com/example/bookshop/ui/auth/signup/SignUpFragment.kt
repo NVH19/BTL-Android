@@ -15,6 +15,7 @@ import com.example.bookshop.R
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import com.example.bookshop.databinding.FragmentSignUpBinding
+import com.example.bookshop.ui.auth.login.LoginFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.LoadingProgressBar
 
@@ -86,6 +87,11 @@ class SignUpFragment : Fragment() {
                 }
                 if (cursorPosition >= 0) {
                     editConfirmPassword.setSelection(cursorPosition)
+                }
+                textLogin.setOnClickListener {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, LoginFragment())
+                        .commit()
                 }
             }
         }
