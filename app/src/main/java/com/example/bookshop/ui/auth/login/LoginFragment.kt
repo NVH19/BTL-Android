@@ -22,6 +22,7 @@ import com.example.bookshop.data.model.response.auth.AuthResponse
 import com.example.bookshop.databinding.FragmentLogInBinding
 import com.example.bookshop.ui.auth.signup.SignUpFragment
 import com.example.bookshop.ui.main.MainMenuFragment
+import com.example.bookshop.ui.profile.ProfileSignInFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.LoadingProgressBar
 import com.example.bookshop.utils.MySharedPreferences
@@ -55,9 +56,23 @@ class LoginFragment : Fragment() {
         val accessToken = MySharedPreferences.getAccessToken(null)
         val expiresIn = MySharedPreferences.getLogInTime("ExpiresIn", 0)
         val loginTimeFirst = MySharedPreferences.getLogInTime("FirstTime", 0)
+        if (accessToken != null) {
+            val loginTime = System.currentTimeMillis()
+            navToMainScreen()
+            RetrofitClient.updateAccessToken(accessToken)
+            if ((loginTime - loginTimeFirst) > expiresIn) {
+                MySharedPreferences.clearPreferences()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, ProfileSignInFragment()).commit()
+                AlertMessageViewer.showAlertDialogMessage(
+                    requireContext(),
+                    resources.getString(R.string.messageExpiresIn)
+                )
+            }
+        }
         loadingProgressBar = LoadingProgressBar(requireContext())
         binding?.apply {
-            layoutSignIn.setOnTouchListener { view, motionEvent ->
+            layoutLogin.setOnTouchListener { view, motionEvent ->
                 if (motionEvent.action == MotionEvent.ACTION_DOWN) {
                     val event =
                         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -76,7 +91,7 @@ class LoginFragment : Fragment() {
             textRegister.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.container, SignUpFragment())
-                    .addToBackStack("SignIn")
+                    .addToBackStack("Login")
                     .commit()
             }
             imageEye.setOnClickListener {

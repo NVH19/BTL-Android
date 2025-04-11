@@ -52,5 +52,6 @@ dependencies {
     implementation(libs.retrofitConverterGson)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.circleindicator)
 
 }
