@@ -88,11 +88,11 @@ class SignUpFragment : Fragment() {
                 if (cursorPosition >= 0) {
                     editConfirmPassword.setSelection(cursorPosition)
                 }
-                textLogin.setOnClickListener {
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.container, LoginFragment())
-                        .commit()
-                }
+            }
+            textLogin.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, LoginFragment())
+                    .commit()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
