@@ -117,6 +117,11 @@ class SignUpFragment : Fragment() {
                     requireContext(),
                     authState.error.message
                 )
+                if (it.loginResponse != null) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, LoginFragment())
+                        .commit()
+                }
             }
         }
     }
