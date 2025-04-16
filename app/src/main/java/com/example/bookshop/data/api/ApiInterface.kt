@@ -10,6 +10,7 @@ import com.example.bookshop.data.model.reponse.product.BannerList
 import com.example.bookshop.data.model.reponse.product.BookInHomeList
 import com.example.bookshop.data.model.reponse.product.ProductInfoList
 import com.example.bookshop.data.model.reponse.product.ProductList
+import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.auth.AuthResponse
@@ -58,6 +59,18 @@ interface ApiInterface {
         @Body ratingRequest: List<RatingRequest>,
     ): Response<Message>
 
+    @GET("products/new")
+    suspend fun getSearchNewProduct(): Response<ProductNewList>
+
+    @GET("products/search")
+    suspend fun getSearchProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("filter_type") filterType: Int,
+        @Query("price_sort_order") priceSortOrder: String,
+    ): Response<ProductList>
 
     @GET("products/banner")
     suspend fun getProductBanner(): Response<BannerList>
