@@ -10,6 +10,7 @@ import com.example.bookshop.data.model.reponse.product.BannerList
 import com.example.bookshop.data.model.reponse.product.BookInHomeList
 import com.example.bookshop.data.model.reponse.product.ProductInfoList
 import com.example.bookshop.data.model.reponse.product.ProductList
+import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.auth.AuthResponse
@@ -34,12 +35,14 @@ interface IDataSource {
         page: Int,
         description_length: Int,
     ): Response<ProductsByAuthor>?
+
     suspend fun getProductsByCategory(
         id: Int,
         limit: Int,
         page: Int,
         description_length: Int,
     ): Response<ProductList>?
+
     suspend fun getProductsBySupplier(
         id: Int,
         limit: Int,
@@ -47,6 +50,15 @@ interface IDataSource {
         description_length: Int,
     ): Response<ProductList>?
 
+    suspend fun getSearchNewProduct(): Response<ProductNewList>?
+    suspend fun getSearchProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        filter_type: Int,
+        price_sort_order: String,
+    ): Response<ProductList>?
 
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
