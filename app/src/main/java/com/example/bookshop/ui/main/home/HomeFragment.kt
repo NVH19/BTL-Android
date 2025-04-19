@@ -20,6 +20,7 @@ import com.example.bookshop.ui.adapter.BannerAdapter
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.CategoryIndexAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.category.CategoryIndexFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.LoadingProgressBar
 
@@ -66,6 +67,12 @@ class HomeFragment : Fragment() {
         val horizontalSpacing = resources.getDimensionPixelSize(R.dimen.horizontal_spacing)
         val verticalSpacing = resources.getDimensionPixelSize(R.dimen.vertical_spacing)
         binding?.apply {
+            imageNavCategory.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, CategoryIndexFragment())
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
             recyclerviewHotCategory.adapter = adapterHotCategory
             recyclerviewHotCategory.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

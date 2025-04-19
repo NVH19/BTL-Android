@@ -42,6 +42,13 @@ interface IDataSource {
         page: Int,
         description_length: Int,
     ): Response<ProductList>?
+    suspend fun getSearchCategoryProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        categoryId: Int,
+    ): Response<ProductList>?
 
     suspend fun getProductsBySupplier(
         id: Int,

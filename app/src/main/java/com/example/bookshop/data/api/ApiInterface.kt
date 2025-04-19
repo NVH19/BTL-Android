@@ -71,6 +71,14 @@ interface ApiInterface {
         @Query("filter_type") filterType: Int,
         @Query("price_sort_order") priceSortOrder: String,
     ): Response<ProductList>
+    @GET("products/category/search")
+    suspend fun getSearchCategoryProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("category_id") categoryId: Int,
+    ): Response<ProductList>
 
     @GET("products/banner")
     suspend fun getProductBanner(): Response<BannerList>

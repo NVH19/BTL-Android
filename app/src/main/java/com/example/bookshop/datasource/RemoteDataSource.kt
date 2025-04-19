@@ -103,6 +103,21 @@ class RemoteDataSource() : IDataSource {
             price_sort_order,
         )
     }
+    override suspend fun getSearchCategoryProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        categoryId: Int,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchCategoryProducts(
+            limit,
+            page,
+            description_length,
+            query_string,
+            categoryId,
+        )
+    }
 
     override suspend fun getAllCategory(): Response<CategoryList>? {
         return RetrofitClient.apiService.getAllCategory()
