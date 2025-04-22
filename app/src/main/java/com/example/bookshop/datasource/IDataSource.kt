@@ -1,17 +1,12 @@
 package com.example.bookshop.datasource
 
-import com.example.bookshop.data.model.CategoryList
-import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
-import com.example.bookshop.data.model.request.RatingRequest
+import com.example.bookshop.data.model.*
+import com.example.bookshop.data.model.response.*
+import com.example.bookshop.data.model.response.RatingResponse
+import com.example.bookshop.data.model.response.author.AuthorFamousList
+import com.example.bookshop.data.model.response.author.AuthorInfor
+import com.example.bookshop.data.model.response.product.*
+import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import retrofit2.Response
 
@@ -47,6 +42,13 @@ interface IDataSource {
         description_length: Int,
     ): Response<ProductList>?
 
+    suspend fun addItemToWishList(productId: Int): Response<Message>?
+    suspend fun removeItemInWishList(productId: Int): Response<Message>
+    suspend fun getWishList(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+    ): Response<WishlistResponse>?
 
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
@@ -56,4 +58,10 @@ interface IDataSource {
     suspend fun getAuthor(authorId: Int): Response<AuthorInfor>?
     suspend fun getHotAuthor(): Response<AuthorFamousList>?
 
+    suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
+    suspend fun getAllCart(): Response<Cart>?
+    suspend fun addAllItemToCart(): Response<Message>
+    suspend fun deleteAllItemCart(): Response<Message>
+    suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
+    suspend fun removeItemInCart(itemId: Int): Response<Message>?
 }

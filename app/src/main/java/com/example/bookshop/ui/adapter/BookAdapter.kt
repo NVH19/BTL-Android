@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bookshop.R
 import com.example.bookshop.data.model.Product
-import com.example.bookshop.data.model.reponse.product.BookInHome
+import com.example.bookshop.data.model.response.product.BookInHome
 import com.example.bookshop.databinding.ItemBookBinding
 import com.example.bookshop.databinding.ItemNewArrivalBinding
 import com.example.bookshop.utils.format.FormatMoney

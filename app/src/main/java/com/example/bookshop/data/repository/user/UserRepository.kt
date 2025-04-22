@@ -2,7 +2,7 @@ package com.example.bookshop.data.repository.user
 
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.response.auth.AuthResponse
-import com.example.bookshop.data.model.reponse.Message
+import com.example.bookshop.data.model.response.Message
 import retrofit2.Response
 
 interface UserRepository {

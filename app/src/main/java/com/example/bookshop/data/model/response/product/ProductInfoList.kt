@@ -1,7 +1,7 @@
-package com.example.bookshop.data.model.reponse.product
+package com.example.bookshop.data.model.response.product
 
 import com.example.bookshop.data.model.Supplier
-import com.example.bookshop.data.model.reponse.author.AuthorProInfo
+import com.example.bookshop.data.model.response.author.AuthorProInfo
 import com.google.gson.annotations.SerializedName
 
 data class ProductInfoList(
