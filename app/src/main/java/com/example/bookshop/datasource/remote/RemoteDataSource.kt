@@ -116,32 +116,6 @@ class RemoteDataSource() : IDataSource {
         return RetrofitClient.apiService.getWishList(limit, page, description_length)
     }
 
-    override suspend fun getAllCart(): Response<Cart>? {
-        return RetrofitClient.apiService.getAllCart()
-    }
-
-    override suspend fun addCartItem(productId: Int): Response<List<CartItem>>? {
-        return RetrofitClient.apiService.addProduct2Cart(productId)
-    }
-
-    override suspend fun addAllItemToCart(): Response<Message> {
-        return RetrofitClient.apiService.addAllItem2Cart()
-    }
-
-    override suspend fun deleteAllItemCart(): Response<Message> {
-        return RetrofitClient.apiService.deleteAllItemCart()
-    }
-
-    override suspend fun changeProductQuantityInCart(
-        itemId: Int,
-        quantity: Int,
-    ): Response<Message>? {
-        return RetrofitClient.apiService.changeProductQuantityInCart(itemId, quantity)
-    }
-
-    override suspend fun removeItemInCart(itemId: Int): Response<Message>? {
-        return RetrofitClient.apiService.removeItemInCart(itemId)
-    }
 
 
 }

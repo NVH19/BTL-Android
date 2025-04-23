@@ -134,10 +134,4 @@ interface ApiInterface {
         @Path("item_id") itemId: Int,
     ): Response<Message>?
 
-    @GET("shoppingCart")
-    suspend fun getAllCart(): Response<Cart>?
-
-    @FormUrlEncoded
-    @POST("shoppingCart/add")
-    suspend fun addProduct2Cart(@Field("product_id") productId: Int): Response<List<CartItem>>
 }

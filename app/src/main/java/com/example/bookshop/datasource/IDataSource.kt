@@ -58,10 +58,4 @@ interface IDataSource {
     suspend fun getAuthor(authorId: Int): Response<AuthorInfor>?
     suspend fun getHotAuthor(): Response<AuthorFamousList>?
 
-    suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
-    suspend fun getAllCart(): Response<Cart>?
-    suspend fun addAllItemToCart(): Response<Message>
-    suspend fun deleteAllItemCart(): Response<Message>
-    suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
-    suspend fun removeItemInCart(itemId: Int): Response<Message>?
 }
