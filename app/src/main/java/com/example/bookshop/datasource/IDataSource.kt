@@ -1,5 +1,7 @@
 package com.example.bookshop.datasource
 
+import com.example.BookShopApp.data.model.Cart
+import com.example.BookShopApp.data.model.CartItem
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.reponse.Message
@@ -47,6 +49,12 @@ interface IDataSource {
         description_length: Int,
     ): Response<ProductList>?
 
+    suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
+    suspend fun getAllCart(): Response<Cart>?
+    suspend fun addAllItemToCart(): Response<Message>
+    suspend fun deleteAllItemCart(): Response<Message>
+    suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
+    suspend fun removeItemInCart(itemId: Int): Response<Message>?
 
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
