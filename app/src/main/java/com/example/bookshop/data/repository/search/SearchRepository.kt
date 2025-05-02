@@ -14,8 +14,10 @@ interface SearchRepository {
         priceSortOrder: String,
     ): Response<ProductList>?
 
-
     suspend fun getSearchNewProduct(): Response<ProductNewList>?
+    suspend fun getSearchHistory(
+        queryString: String,
+    ): Response<ProductList>
     suspend fun getSearchCategoryProducts(
         limit: Int,
         page: Int,

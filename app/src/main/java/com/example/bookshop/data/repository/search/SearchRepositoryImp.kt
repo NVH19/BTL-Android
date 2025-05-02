@@ -73,4 +73,8 @@ class SearchRepositoryImp(private val dataSource: IDataSource) : SearchRepositor
             queryString,
         )
     }
+
+    override suspend fun getSearchHistory(queryString: String): Response<ProductList> {
+        return dataSource.getSearchHistory(queryString)
+    }
 }

@@ -66,6 +66,10 @@ interface IDataSource {
         query_string: String,
     ): Response<ProductList>?
 
+    suspend fun getSearchHistory(
+        query_string: String,
+    ): Response<ProductList>
+
 
     suspend fun addItemToWishList(productId: Int): Response<Message>?
     suspend fun removeItemInWishList(productId: Int): Response<Message>

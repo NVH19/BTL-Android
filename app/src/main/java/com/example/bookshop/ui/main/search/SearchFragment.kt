@@ -24,8 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookshop.R
 import com.example.bookshop.data.model.Product
+import com.example.bookshop.data.model.reponse.HistorySearch
 import com.example.bookshop.databinding.FragmentSearchBinding
+import com.example.bookshop.datasource.local.db.entity.ProductDb
 import com.example.bookshop.ui.adapter.BookAdapter
+import com.example.bookshop.ui.adapter.HistorySeachAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.MySharedPreferences
@@ -34,7 +37,9 @@ class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
     private lateinit var viewModel: SearchViewModel
     private lateinit var adapter: BookAdapter
+    private lateinit var adapterHistory: HistorySeachAdapter
     private var bookList = mutableListOf<Product>()
+    private var list = mutableListOf<HistorySearch>()
     private var idCustomer = 0
     private var currentPage = 1
     private var lastPosition = 0
@@ -67,6 +72,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = BookAdapter(false)
+        adapterHistory = HistorySeachAdapter()
         adapter.clearData()
         initViewModel()
 
@@ -93,6 +99,7 @@ class SearchFragment : Fragment() {
         refreshData()
         binding?.apply {
             recyclerHistorySearch.layoutManager = LinearLayoutManager(context)
+            recyclerHistorySearch.adapter = adapterHistory
             layoutManager = GridLayoutManager(context, 2)
             recyclerProduct.layoutManager = layoutManager
             recyclerProduct.adapter = adapter
@@ -152,6 +159,27 @@ class SearchFragment : Fragment() {
                 binding?.loadingLayout?.root?.visibility = View.INVISIBLE
             }
         }
+        viewModel.historyList.observe(viewLifecycleOwner) {
+            list.clear()
+            for (historyLocal in it.reversed()) {
+                list.add(HistorySearch(historyLocal, null))
+            }
+            if (list.size > 0) {
+                binding?.textRemoveAll?.visibility = View.VISIBLE
+            }
+            adapterHistory.setData(list)
+            searchLocalProduct()
+            clickRemoveHistory()
+        }
+        viewModel.productNameList.observe(viewLifecycleOwner) {
+            list.clear()
+            for (product in it) {
+                list.add(HistorySearch(null, product))
+            }
+            adapterHistory.setData(list)
+            binding?.textRemoveAll?.visibility = View.INVISIBLE
+            searchSuggestProduct()
+        }
     }
 
     private fun handleSearch() {
@@ -160,6 +188,7 @@ class SearchFragment : Fragment() {
                 if (hasFocus) {
                     groupHistorySearch.visibility = View.VISIBLE
                     groupSearch.visibility = View.INVISIBLE
+                    viewModel.getHistorySearchLocal(idCustomer)
                     textRemoveAll.visibility = View.INVISIBLE
                     imageLeft.visibility=View.VISIBLE
                     val layoutParams =
@@ -187,10 +216,12 @@ class SearchFragment : Fragment() {
                     val layoutParams = textTitleSearch.layoutParams
                     queryString = editSearch.text.toString()
                     if (queryString.isEmpty()) {
+                        viewModel.getHistorySearchLocal(idCustomer)
                         textTitleSearch.visibility = View.VISIBLE
                         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                         textTitleSearch.layoutParams = layoutParams
                     } else {
+                        viewModel.getSearchHistory(queryString)
                         textTitleSearch.visibility = View.INVISIBLE
                         layoutParams.height = 0
                         textTitleSearch.layoutParams = layoutParams
@@ -205,7 +236,12 @@ class SearchFragment : Fragment() {
             imageSeach.setOnClickListener {
                 queryString = editSearch.text.toString()
                 if (queryString.isNotEmpty()) {
-
+                    viewModel.insertHistorySearchLocal(
+                        ProductDb(
+                            idCustomer = idCustomer,
+                            productName = queryString
+                        )
+                    )
                 }
                 currentPage = 1
                 pastPage = -1
@@ -228,7 +264,12 @@ class SearchFragment : Fragment() {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     queryString = editSearch.text.toString()
                     if (queryString.isNotEmpty()) {
-
+                        viewModel.insertHistorySearchLocal(
+                            ProductDb(
+                                idCustomer = idCustomer,
+                                productName = queryString
+                            )
+                        )
                     }
                     currentPage = 1
                     pastPage = -1
@@ -252,7 +293,12 @@ class SearchFragment : Fragment() {
                 }
                 return@setOnEditorActionListener false
             }
-
+            textRemoveAll.setOnClickListener {
+                viewModel.deleteHistorySearchLocal()
+                list.clear()
+                adapterHistory.clearData()
+                textRemoveAll.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -371,6 +417,61 @@ class SearchFragment : Fragment() {
             }
             swipeRefresh.setColorSchemeColors(resources.getColor(R.color.teal_200))
         }
+    }
+
+    private fun searchSuggestProduct() {
+        adapterHistory.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val product = adapterHistory.getBook(position)
+                viewModel.insertHistorySearchLocal(
+                    ProductDb(
+                        idCustomer = idCustomer,
+                        productName = product?.name.toString()
+                    )
+                )
+            }
+        })
+    }
+
+    private fun searchLocalProduct() {
+        adapterHistory.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val productName = adapterHistory.getProductNameLocal(position)
+                currentPage = 1
+                pastPage = -1
+                productName?.let {
+                    viewModel.getSearchProducts(
+                        10, 1, 100,
+                        it, filterType, priceSort
+                    )
+                }
+                val inputMethodManager =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                binding?.apply {
+                    editSearch.setText(productName)
+                    inputMethodManager.hideSoftInputFromWindow(editSearch.windowToken, 0)
+                    editSearch.clearFocus()
+                    imageLeft.visibility=View.GONE
+                    marginEditSearch()
+                    groupHistorySearch.visibility = View.INVISIBLE
+                    groupSearch.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
+    private fun clickRemoveHistory() {
+        adapterHistory.clickRemoveItem(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val productName = adapterHistory.getProductNameLocal(position)
+                productName?.let { viewModel.removeItemHistorySearchLocal(it) }
+                list.removeAt(position)
+                adapterHistory.removeData(position)
+                if (list.size == 0) {
+                    binding?.textRemoveAll?.visibility = View.INVISIBLE
+                }
+            }
+        })
     }
 
     private fun setTextColor(text: TextView, color: String) {
