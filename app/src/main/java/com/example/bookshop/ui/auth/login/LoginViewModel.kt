@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.auth.AuthState
+import com.example.bookshop.data.model.response.auth.AuthState
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import com.example.bookshop.data.repository.user.UserRepository
 import com.example.bookshop.data.repository.user.UserRepositoryImp
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.example.bookshop.data.model.reponse.Error
-import com.example.bookshop.datasource.RemoteDataSource
-import com.example.bookshop.data.model.reponse.ErrorResponse
+import com.example.bookshop.data.model.response.Error
+import com.example.bookshop.datasource.remote.RemoteDataSource
+import com.example.bookshop.data.model.response.ErrorResponse
 
 class LoginViewModel : ViewModel() {
     private var _loginResponse = MutableLiveData<AuthState>()

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bookshop.data.model.reponse.product.Banner
+import com.example.bookshop.data.model.response.product.Banner
 import com.example.bookshop.databinding.ItemBannerBinding
 
 class BannerAdapter() : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {

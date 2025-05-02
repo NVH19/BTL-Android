@@ -1,4 +1,4 @@
-package com.example.bookshop.data.model.reponse.author
+package com.example.bookshop.data.model.response.author
 
 import com.google.gson.annotations.SerializedName
 

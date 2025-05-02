@@ -2,16 +2,15 @@ package com.example.bookshop.data.api
 
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductNewList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
+import com.example.bookshop.data.model.response.Message
+import com.example.bookshop.data.model.response.RatingResponse
+import com.example.bookshop.data.model.response.author.AuthorFamousList
+import com.example.bookshop.data.model.response.author.AuthorInfor
+import com.example.bookshop.data.model.response.product.BannerList
+import com.example.bookshop.data.model.response.product.BookInHomeList
+import com.example.bookshop.data.model.response.product.ProductInfoList
+import com.example.bookshop.data.model.response.product.ProductList
+import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import retrofit2.Response
@@ -59,26 +58,6 @@ interface ApiInterface {
         @Body ratingRequest: List<RatingRequest>,
     ): Response<Message>
 
-    @GET("products/new")
-    suspend fun getSearchNewProduct(): Response<ProductNewList>
-
-    @GET("products/search")
-    suspend fun getSearchProducts(
-        @Query("limit") limit: Int,
-        @Query("page") page: Int,
-        @Query("description_length") descriptionLength: Int,
-        @Query("query_string") queryString: String,
-        @Query("filter_type") filterType: Int,
-        @Query("price_sort_order") priceSortOrder: String,
-    ): Response<ProductList>
-    @GET("products/category/search")
-    suspend fun getSearchCategoryProducts(
-        @Query("limit") limit: Int,
-        @Query("page") page: Int,
-        @Query("description_length") descriptionLength: Int,
-        @Query("query_string") queryString: String,
-        @Query("category_id") categoryId: Int,
-    ): Response<ProductList>
 
     @GET("products/banner")
     suspend fun getProductBanner(): Response<BannerList>

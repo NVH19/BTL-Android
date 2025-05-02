@@ -11,7 +11,6 @@ import com.example.bookshop.data.model.reponse.product.BannerList
 import com.example.bookshop.data.model.reponse.product.BookInHomeList
 import com.example.bookshop.data.model.reponse.product.ProductInfoList
 import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.auth.AuthResponse
@@ -80,43 +79,6 @@ class RemoteDataSource() : IDataSource {
         description_length: Int,
     ): Response<ProductList>? {
         return RetrofitClient.apiService.getProductsBySupplier(id, limit, page, description_length)
-    }
-
-    override suspend fun getSearchNewProduct(): Response<ProductNewList>? {
-        return RetrofitClient.apiService.getSearchNewProduct()
-    }
-
-    override suspend fun getSearchProducts(
-        limit: Int,
-        page: Int,
-        description_length: Int,
-        query_string: String,
-        filter_type: Int,
-        price_sort_order: String,
-    ): Response<ProductList>? {
-        return RetrofitClient.apiService.getSearchProducts(
-            limit,
-            page,
-            description_length,
-            query_string,
-            filter_type,
-            price_sort_order,
-        )
-    }
-    override suspend fun getSearchCategoryProducts(
-        limit: Int,
-        page: Int,
-        description_length: Int,
-        query_string: String,
-        categoryId: Int,
-    ): Response<ProductList>? {
-        return RetrofitClient.apiService.getSearchCategoryProducts(
-            limit,
-            page,
-            description_length,
-            query_string,
-            categoryId,
-        )
     }
 
     override suspend fun getAllCategory(): Response<CategoryList>? {
