@@ -102,6 +102,11 @@ interface ApiInterface {
         @Query("description_length") description_length: Int,
     ): Response<ProductList>
 
+    @GET("products/search")
+    suspend fun getSearchHistory(
+        @Query("query_string") queryString: String,
+    ): Response<ProductList>
+
     @GET("category")
     suspend fun getAllCategory(): Response<CategoryList>
 

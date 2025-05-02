@@ -104,6 +104,10 @@ class RemoteDataSource() : IDataSource {
         )
     }
 
+    override suspend fun getSearchHistory(query_string: String): Response<ProductList> {
+        return RetrofitClient.apiService.getSearchHistory(query_string)
+    }
+
     override suspend fun getAllCategory(): Response<CategoryList>? {
         return RetrofitClient.apiService.getAllCategory()
     }

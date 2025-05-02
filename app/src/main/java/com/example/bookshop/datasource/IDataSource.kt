@@ -60,6 +60,10 @@ interface IDataSource {
         price_sort_order: String,
     ): Response<ProductList>?
 
+    suspend fun getSearchHistory(
+        query_string: String,
+    ): Response<ProductList>
+
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
     suspend fun getNewBook(): Response<BookInHomeList>?
