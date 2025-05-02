@@ -15,11 +15,7 @@ import com.example.bookshop.R
 import com.example.bookshop.data.model.reponse.product.Banner
 import com.example.bookshop.databinding.FragmentHomeBinding
 import com.example.bookshop.databinding.FragmentMainMenuBinding
-import com.example.bookshop.ui.adapter.AuthorFamousAdapter
-import com.example.bookshop.ui.adapter.BannerAdapter
-import com.example.bookshop.ui.adapter.BookAdapter
-import com.example.bookshop.ui.adapter.CategoryIndexAdapter
-import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.adapter.*
 import com.example.bookshop.ui.category.CategoryIndexFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.LoadingProgressBar
@@ -155,6 +151,27 @@ class HomeFragment : Fragment() {
     }
 
     fun navToProductDetail() {
-//
+        adapterNewBook.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val prouduct = adapterNewBook.getBookInHome(position)
+                val bundle = Bundle()
+                bundle.putString("bookId", prouduct.productId.toString())
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, ProductdetailFragment().apply { arguments = bundle })
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        })
+        adapterHotBook.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val prouduct = adapterHotBook.getBookInHome(position)
+                val bundle = Bundle()
+                bundle.putString("bookId", prouduct.productId.toString())
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, ProductdetailFragment().apply { arguments = bundle })
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        })
     }
 }
