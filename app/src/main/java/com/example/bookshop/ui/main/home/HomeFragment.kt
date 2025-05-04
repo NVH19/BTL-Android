@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.bookshop.R
-import com.example.bookshop.data.model.reponse.product.Banner
+import com.example.bookshop.data.model.response.product.Banner
 import com.example.bookshop.databinding.FragmentHomeBinding
 import com.example.bookshop.databinding.FragmentMainMenuBinding
 import com.example.bookshop.ui.adapter.AuthorFamousAdapter
 import com.example.bookshop.ui.adapter.BannerAdapter
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.CategoryIndexAdapter
-import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.LoadingProgressBar
 

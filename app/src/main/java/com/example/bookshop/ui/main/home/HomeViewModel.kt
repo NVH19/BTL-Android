@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookshop.data.model.*
-import com.example.bookshop.data.model.reponse.product.Banner
-import com.example.bookshop.data.model.reponse.product.BookInHome
+import com.example.bookshop.data.model.response.product.Banner
+import com.example.bookshop.data.model.response.product.BookInHome
 import com.example.bookshop.data.repository.author.AuthorRepository
 import com.example.bookshop.data.repository.author.AuthorRepositoryImp
 import com.example.bookshop.data.repository.category.CategoryRepository
 import com.example.bookshop.data.repository.category.CategoryRepositoryImp
 import com.example.bookshop.data.repository.product.ProductRepository
 import com.example.bookshop.data.repository.product.ProductRepositoryImp
-import com.example.bookshop.datasource.RemoteDataSource
+import com.example.bookshop.datasource.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

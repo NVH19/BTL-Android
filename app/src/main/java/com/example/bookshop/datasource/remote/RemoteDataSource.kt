@@ -1,19 +1,14 @@
-package com.example.bookshop.datasource
+package com.example.bookshop.datasource.remote
 
 import com.example.bookshop.data.api.RetrofitClient
-import com.example.bookshop.data.model.CategoryList
-import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
-import com.example.bookshop.data.model.request.RatingRequest
+import com.example.bookshop.data.model.*
+import com.example.bookshop.data.model.response.*
+import com.example.bookshop.data.model.response.author.AuthorFamousList
+import com.example.bookshop.data.model.response.author.AuthorInfor
+import com.example.bookshop.data.model.response.product.*
+import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.datasource.IDataSource
 import retrofit2.Response
 
 class RemoteDataSource() : IDataSource {
@@ -104,4 +99,23 @@ class RemoteDataSource() : IDataSource {
     override suspend fun getHotAuthor(): Response<AuthorFamousList>? {
         return RetrofitClient.apiService.getHotAuthor()
     }
+
+    override suspend fun addItemToWishList(productId: Int): Response<Message>? {
+        return RetrofitClient.apiService.addItemToWishList(productId)
+    }
+
+    override suspend fun removeItemInWishList(productId: Int): Response<Message> {
+        return RetrofitClient.apiService.removeItemInWishList(productId)
+    }
+
+    override suspend fun getWishList(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+    ): Response<WishlistResponse>? {
+        return RetrofitClient.apiService.getWishList(limit, page, description_length)
+    }
+
+
+
 }

@@ -1,12 +1,12 @@
 package com.example.bookshop.data.repository.product
 
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
+import com.example.bookshop.data.model.response.Message
+import com.example.bookshop.data.model.response.RatingResponse
+import com.example.bookshop.data.model.response.product.BannerList
+import com.example.bookshop.data.model.response.product.BookInHomeList
+import com.example.bookshop.data.model.response.product.ProductInfoList
+import com.example.bookshop.data.model.response.product.ProductList
+import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import retrofit2.Response
 

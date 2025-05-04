@@ -2,18 +2,15 @@ package com.example.bookshop.datasource
 
 import com.example.BookShopApp.data.model.Cart
 import com.example.BookShopApp.data.model.CartItem
+import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
-import com.example.bookshop.data.model.request.RatingRequest
+import com.example.bookshop.data.model.response.*
+import com.example.bookshop.data.model.response.RatingResponse
+import com.example.bookshop.data.model.response.author.AuthorFamousList
+import com.example.bookshop.data.model.response.author.AuthorInfor
+import com.example.bookshop.data.model.response.product.*
+import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import retrofit2.Response
 
@@ -55,6 +52,14 @@ interface IDataSource {
     suspend fun deleteAllItemCart(): Response<Message>
     suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
     suspend fun removeItemInCart(itemId: Int): Response<Message>?
+
+    suspend fun addItemToWishList(productId: Int): Response<Message>?
+    suspend fun removeItemInWishList(productId: Int): Response<Message>
+    suspend fun getWishList(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+    ): Response<WishlistResponse>?
 
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
