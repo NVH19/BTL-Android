@@ -1,16 +1,16 @@
-package com.example.BookShopApp.ui.main.cart
+package com.example.bookshop.ui.main.cart
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.BookShopApp.data.model.CartItem
-import com.example.BookShopApp.data.repository.cart.CartRepository
-import com.example.BookShopApp.data.repository.cart.CartRepositoryImp
-import com.example.bookshop.data.model.reponse.ErrorResponse
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.datasource.RemoteDataSource
+import com.example.bookshop.data.model.CartItem
+import com.example.bookshop.data.repository.cart.CartRepository
+import com.example.bookshop.data.repository.cart.CartRepositoryImp
+import com.example.bookshop.data.model.response.ErrorResponse
+import com.example.bookshop.data.model.response.Message
+import com.example.bookshop.datasource.remote.RemoteDataSource
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
