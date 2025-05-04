@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bookshop.data.model.reponse.auth.AuthState
+import com.example.bookshop.data.model.response.auth.AuthState
 import com.example.bookshop.data.model.response.auth.AuthResponse
-import com.example.bookshop.data.model.reponse.Error
-import com.example.bookshop.data.model.reponse.ErrorResponse
+import com.example.bookshop.data.model.response.Error
+import com.example.bookshop.data.model.response.ErrorResponse
 import com.example.bookshop.data.repository.user.UserRepository
 import com.example.bookshop.data.repository.user.UserRepositoryImp
-import com.example.bookshop.datasource.RemoteDataSource
+import com.example.bookshop.datasource.remote.RemoteDataSource
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
