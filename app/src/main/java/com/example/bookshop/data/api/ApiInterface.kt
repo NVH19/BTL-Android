@@ -1,5 +1,7 @@
 package com.example.bookshop.data.api
 
+import com.example.bookshop.data.model.Cart
+import com.example.bookshop.data.model.CartItem
 import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.response.*
 import com.example.bookshop.data.model.response.author.AuthorFamousList
@@ -134,4 +136,10 @@ interface ApiInterface {
         @Path("item_id") itemId: Int,
     ): Response<Message>?
 
+    @FormUrlEncoded
+    @POST("shoppingCart/add")
+    suspend fun addProduct2Cart(@Field("product_id") productId: Int): Response<List<CartItem>>
+
+    @GET("shoppingCart")
+    suspend fun getAllCart(): Response<Cart>?
 }
