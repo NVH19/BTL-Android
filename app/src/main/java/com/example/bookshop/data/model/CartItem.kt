@@ -1,4 +1,4 @@
-package com.example.BookShopApp.data.model
+package com.example.bookshop.data.model
 
 import com.google.gson.annotations.SerializedName
 
