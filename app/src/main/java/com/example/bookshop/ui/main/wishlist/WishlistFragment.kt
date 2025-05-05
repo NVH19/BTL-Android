@@ -77,6 +77,7 @@ class WishlistFragment : Fragment() {
 //                    .commit()
 //            }
             textAddToBag.setOnClickListener {
+                viewModel.addAllItemToCart()
                 Handler().postDelayed({
                     viewModel.getWishList(10, 1, 100);
                 }, 500)
@@ -140,6 +141,7 @@ class WishlistFragment : Fragment() {
             it.wishlist.let { wishList ->
                 listItemWishList.addAll(wishList)
                 adapter.setData(wishList)
+                addItemToCart()
                 binding?.textPrice?.text = formatMoney.formatMoney(adapter.getTotalPrice().toLong())
             }
         }
@@ -149,6 +151,30 @@ class WishlistFragment : Fragment() {
         viewModelProduct.messageRemove.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun addItemToCart() {
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val product = adapter.getBook(position)
+                val quantityRemaining = product.quantity - product.quantitySold
+                if (quantityRemaining > 0) {
+                    viewModel.addItemToCart(product.product_id)
+                    Handler().postDelayed({
+                        viewModel.getWishList(10, 1, 100)
+                    }, 500)
+                    AlertMessageViewer.showAlertDialogMessage(
+                        requireContext(),
+                        "Đã thêm sản phẩm vào giỏ hàng"
+                    )
+                } else {
+                    AlertMessageViewer.showAlertDialogMessage(
+                        requireContext(),
+                        "Sản phẩm này tạm hết!"
+                    )
+                }
+            }
+        })
     }
 
 
