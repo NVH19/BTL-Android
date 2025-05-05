@@ -11,6 +11,8 @@ import com.example.bookshop.datasource.remote.RemoteDataSource
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.example.bookshop.data.repository.cart.CartRepository
+import com.example.bookshop.data.repository.cart.CartRepositoryImp
 
 class WishlistViewModel : ViewModel() {
     private val _wishList = MutableLiveData<WishlistResponse>()
@@ -19,6 +21,7 @@ class WishlistViewModel : ViewModel() {
     val message: LiveData<Message> get() = _message
     private val wishListRepository: WishListRepository = WishListRepositoryImp(RemoteDataSource())
 
+    private var cartRepository: CartRepository? = CartRepositoryImp(RemoteDataSource())
 
     fun getWishList(limit: Int, page: Int, description_length: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,4 +34,37 @@ class WishlistViewModel : ViewModel() {
         }
     }
 
+    fun addItemToCart(productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = cartRepository?.addCartItem(productId)
+            if (response?.isSuccessful == true) {
+            } else {
+                Log.d("ADDITEMTOCARTNULL", "NULL")
+            }
+        }
+    }
+
+    fun addAllItemToCart(){
+        viewModelScope.launch (Dispatchers.IO){
+            val response=cartRepository?.addAllItemToCart()
+            if (response?.isSuccessful==true){
+                _message.postValue(response.body())
+            }else{
+                val errorBody=response?.errorBody()?.string()
+                val gson=Gson()
+                val errorResponse=gson.fromJson(errorBody, ErrorResponse::class.java)
+                _message.postValue(Message(errorResponse.error.message))
+            }
+        }
+    }
+
+    fun removeItemInWishList(productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = wishListRepository.removeItemInWishList(productId)
+            if (response?.isSuccessful == true) {
+            } else {
+                Log.d("REMOVEITEMWISHLIST", "NULL")
+            }
+        }
+    }
 }
