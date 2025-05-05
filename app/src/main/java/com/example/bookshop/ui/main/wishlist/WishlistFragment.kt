@@ -20,7 +20,7 @@ import com.example.bookshop.data.model.Wishlist
 import com.example.bookshop.databinding.FragmentWishlistBinding
 import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.ui.adapter.WishListAdapter
-import com.example.bookshop.ui.productdetail.ProductdetailViewModel
+import com.example.bookshop.ui.product.ProductdetailViewModel
 //import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.format.FormatMoney
@@ -84,7 +84,7 @@ class WishlistFragment : Fragment() {
             recyclerWishList.layoutManager = LinearLayoutManager(context)
             recyclerWishList.adapter = adapter
         }
-//        handleLoadData()
+        handleLoadData()
         handleSwipeItem()
     }
 
@@ -111,23 +111,23 @@ class WishlistFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding?.recyclerWishList)
     }
 
-//    private fun handleLoadData() {
-//        binding?.apply {
-//            recyclerWishList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//                    lastPosition =
-//                        (recyclerWishList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-//                    totalPosition = adapter.itemCount
-//                    if (lastPosition != currentPosition && lastPosition == totalPosition - 3) {
-//                        currentPage++
-//                        viewModel.getWishList(10, currentPage, 100)
-//                        currentPosition = lastPosition
-//                    }
-//                }
-//            })
-//        }
-//    }
+    private fun handleLoadData() {
+        binding?.apply {
+            recyclerWishList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    lastPosition =
+                        (recyclerWishList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    totalPosition = adapter.itemCount
+                    if (lastPosition != currentPosition && lastPosition == totalPosition - 3) {
+                        currentPage++
+                        viewModel.getWishList(10, currentPage, 100)
+                        currentPosition = lastPosition
+                    }
+                }
+            })
+        }
+    }
 
     private fun refreshData() {
         viewModel.getWishList(10, 1, 100)

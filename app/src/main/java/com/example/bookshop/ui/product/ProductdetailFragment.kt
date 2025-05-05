@@ -16,8 +16,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.bookshop.R
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
+import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
+import com.example.bookshop.ui.main.wishlist.WishlistViewModel
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.LoadingProgressBar
 import com.example.bookshop.utils.MySharedPreferences
@@ -63,22 +64,6 @@ class ProductdetailFragment : Fragment() {
             imageLeft.setOnClickListener {
                 parentFragmentManager.popBackStack()
             }
-            imageAccount.setOnClickListener {
-                val profileFragment = ProfileFragment()
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, profileFragment)
-                    .addToBackStack("productFragment")
-                    .commit()
-            }
-            textNameAuthor.setOnClickListener {
-                val authorFragment = AuthorFragment()
-                val bundle = Bundle()
-                bundle.putString("authorId", authorId.toString())
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, authorFragment.apply { arguments = bundle })
-                    .addToBackStack("productFragment")
-                    .commit()
-            }
             textAdditemtocart.setOnClickListener {
                 val str = textNum.text.toString().split(" ")
                 val quantityRemaining = str[str.size - 1].toInt()
@@ -102,21 +87,6 @@ class ProductdetailFragment : Fragment() {
             }
             imageFavorite.setOnClickListener {
                 productId?.let { productId -> itemWishList(productId) }
-            }
-            imageArrow.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putString("publisherId", publisherId.toString())
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, PublisherFragment().apply { arguments = bundle })
-                    .addToBackStack("ProductDetail")
-                    .commit()
-            }
-            textRatingLevel.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putString("bookId", productId.toString())
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, RatingFragment().apply { arguments=bundle })
-                    .addToBackStack("ProductDetail").commit()
             }
         }
     }
@@ -170,8 +140,8 @@ class ProductdetailFragment : Fragment() {
                 .fitCenter()
                 .into(imagePro)
             textName.text = productInfoList.product.name
-            rating.rating=productInfoList.product.ratingLevel.toFloat()
-            textRatingLevel.text=productInfoList.product.ratingLevel.toString()
+            rating.rating = productInfoList.product.ratingLevel.toFloat()
+            textRatingLevel.text = productInfoList.product.ratingLevel.toString()
             textNum.text =
                 resources.getString(R.string.quantity) + " " + (productInfoList.product.quantity - productInfoList.product.quantitySold)
             textMa.text =
@@ -243,3 +213,4 @@ class ProductdetailFragment : Fragment() {
         )
         return content
     }
+}

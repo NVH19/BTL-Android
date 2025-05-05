@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.BookShopApp.data.model.CartItem
 import com.example.BookShopApp.data.repository.cart.CartRepository
 import com.example.BookShopApp.data.repository.cart.CartRepositoryImp
-import com.example.bookshop.data.model.reponse.ErrorResponse
-import com.example.bookshop.data.model.reponse.Message
+import com.example.bookshop.data.model.response.ErrorResponse
+import com.example.bookshop.data.model.response.Message
 import com.example.bookshop.datasource.RemoteDataSource
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers

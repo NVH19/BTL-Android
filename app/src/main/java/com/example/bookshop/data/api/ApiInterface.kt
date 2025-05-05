@@ -1,7 +1,10 @@
 package com.example.bookshop.data.api
 
+import com.example.BookShopApp.data.model.Cart
+import com.example.BookShopApp.data.model.CartItem
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
+import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.response.Message
 import com.example.bookshop.data.model.response.RatingResponse
 import com.example.bookshop.data.model.response.author.AuthorFamousList
@@ -12,9 +15,11 @@ import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.data.model.response.product.ProductList
 import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
+import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -89,6 +94,23 @@ interface ApiInterface {
         @Query("description_length") description_length: Int,
     ): Response<ProductList>
 
+    @FormUrlEncoded
+    @POST("wishlist/add")
+    suspend fun addItemToWishList(@Field("product_id") productId: Int): Response<Message>
+
+    @DELETE("wishlist/remove/{product_id}")
+    suspend fun removeItemInWishList(@Path("product_id") productId: Int): Response<Message>
+
+    @GET("wishlist")
+    suspend fun getWishList(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") description_length: Int,
+    ): Response<WishlistResponse>?
+
+    @GET("shoppingCart")
+    suspend fun getAllCart(): Response<Cart>?
+
     @GET("category")
     suspend fun getAllCategory(): Response<CategoryList>
 
@@ -106,4 +128,48 @@ interface ApiInterface {
 
     @GET("author/{authorId}")
     suspend fun getAuthor(@Path("authorId") authorId: Int): Response<AuthorInfor>
+
+    @FormUrlEncoded
+    @POST("shoppingCart/add")
+    suspend fun addProduct2Cart(@Field("product_id") productId: Int): Response<List<CartItem>>
+
+    @POST("shoppingCart/add/wishlist")
+    suspend fun addAllItem2Cart(): Response<Message>
+
+    @DELETE("shoppingCart/empty")
+    suspend fun deleteAllItemCart(): Response<Message>
+
+    @FormUrlEncoded
+    @POST("shoppingCart/update")
+    suspend fun changeProductQuantityInCart(
+        @Field("item_id") itemId: Int,
+        @Field("quantity") quantity: Int,
+    ): Response<Message>?
+
+    @DELETE("shoppingCart/removeProduct/{item_id}")
+    suspend fun removeItemInCart(
+        @Path("item_id") itemId: Int,
+    ): Response<Message>?
+
+    @GET("products/search")
+    suspend fun getSearchProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("filter_type") filterType: Int,
+        @Query("price_sort_order") priceSortOrder: String,
+    ): Response<ProductList>
+
+    @GET("products/new")
+    suspend fun getSearchNewProduct(): Response<ProductNewList>
+
+    @GET("products/category/search")
+    suspend fun getSearchCategoryProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("category_id") categoryId: Int,
+    ): Response<ProductList>
 }

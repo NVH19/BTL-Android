@@ -14,8 +14,8 @@ import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.bookshop.data.model.response.Error
-import com.example.bookshop.datasource.remote.RemoteDataSource
 import com.example.bookshop.data.model.response.ErrorResponse
+import com.example.bookshop.datasource.RemoteDataSource
 
 class LoginViewModel : ViewModel() {
     private var _loginResponse = MutableLiveData<AuthState>()

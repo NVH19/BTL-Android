@@ -1,6 +1,9 @@
 package com.example.bookshop.datasource
 
+import com.example.BookShopApp.data.model.Cart
+import com.example.BookShopApp.data.model.CartItem
 import com.example.bookshop.data.model.*
+import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.response.*
 import com.example.bookshop.data.model.response.RatingResponse
 import com.example.bookshop.data.model.response.author.AuthorFamousList
@@ -58,4 +61,27 @@ interface IDataSource {
     suspend fun getAuthor(authorId: Int): Response<AuthorInfor>?
     suspend fun getHotAuthor(): Response<AuthorFamousList>?
 
+    suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
+    suspend fun getAllCart(): Response<Cart>?
+    suspend fun addAllItemToCart(): Response<Message>
+    suspend fun deleteAllItemCart(): Response<Message>
+    suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
+    suspend fun removeItemInCart(itemId: Int): Response<Message>?
+
+    suspend fun getSearchProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        filter_type: Int,
+        price_sort_order: String,
+    ): Response<ProductList>?
+    suspend fun getSearchNewProduct(): Response<ProductNewList>?
+    suspend fun getSearchCategoryProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        categoryId: Int,
+    ): Response<ProductList>?
 }

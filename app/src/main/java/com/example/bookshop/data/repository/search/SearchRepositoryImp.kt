@@ -1,7 +1,7 @@
 package com.example.bookshop.data.repository.search
 
-import com.example.bookshop.data.model.reponse.product.ProductList
 import com.example.bookshop.data.model.reponse.product.ProductNewList
+import com.example.bookshop.data.model.response.product.ProductList
 import com.example.bookshop.datasource.IDataSource
 import retrofit2.Response
 

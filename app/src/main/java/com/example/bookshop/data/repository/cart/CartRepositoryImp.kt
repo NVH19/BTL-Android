@@ -2,7 +2,7 @@ package com.example.BookShopApp.data.repository.cart
 
 import com.example.BookShopApp.data.model.Cart
 import com.example.BookShopApp.data.model.CartItem
-import com.example.bookshop.data.model.reponse.Message
+import com.example.bookshop.data.model.response.Message
 import com.example.bookshop.datasource.IDataSource
 import retrofit2.Response
 

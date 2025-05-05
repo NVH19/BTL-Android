@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
+import com.example.BookShopApp.data.repository.cart.CartRepositoryImp
+import com.example.bookshop.data.model.response.Message
+import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.data.repository.product.ProductRepository
 import com.example.bookshop.data.repository.product.ProductRepositoryImp
+import com.example.bookshop.data.repository.wishlist.WishListRepositoryImp
 import com.example.bookshop.datasource.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,3 +71,4 @@ class ProductdetailViewModel : ViewModel() {
             }
         }
     }
+}
