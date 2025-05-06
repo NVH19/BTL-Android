@@ -1,4 +1,4 @@
-package com.example.bookshop.ui.productdetail
+package com.example.bookshop.ui.product
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -71,5 +71,4 @@ class ProductdetailViewModel : ViewModel() {
             }
         }
     }
-
 }

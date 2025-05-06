@@ -1,22 +1,28 @@
-package com.example.bookshop.ui.productdetail
+package com.example.bookshop.ui.product
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.bookshop.R
 import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
 import com.example.bookshop.ui.main.wishlist.WishlistViewModel
 import com.example.bookshop.utils.AlertMessageViewer
-import com.example.bookshop.utils.format.FormatMoney
 import com.example.bookshop.utils.LoadingProgressBar
 import com.example.bookshop.utils.MySharedPreferences
+import com.example.bookshop.utils.format.FormatMoney
 
 class ProductdetailFragment : Fragment() {
     private var binding: FragmentProductDetailBinding? = null
@@ -24,9 +30,10 @@ class ProductdetailFragment : Fragment() {
     private lateinit var viewModelWishList: WishlistViewModel
     private var wishlist: Int = 0
     private val formatMoney = FormatMoney()
+    private var authorId = 0
+    private var publisherId = 0
     private var sizeWishList = 0
     private lateinit var loadingProgressBar: LoadingProgressBar
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -51,9 +58,12 @@ class ProductdetailFragment : Fragment() {
         productId?.let {
             viewModel.getProductInfo(it)
         }
+        readmoreInfo()
         activity?.let { MySharedPreferences.init(it.applicationContext) }
         binding?.apply {
-            // Xử lý thêm sản phẩm vào giỏ hàng
+            imageLeft.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
             textAdditemtocart.setOnClickListener {
                 val str = textNum.text.toString().split(" ")
                 val quantityRemaining = str[str.size - 1].toInt()
@@ -75,8 +85,6 @@ class ProductdetailFragment : Fragment() {
                     )
                 }
             }
-
-            // Xử lý thêm/xóa sản phẩm khỏi wishlist
             imageFavorite.setOnClickListener {
                 productId?.let { productId -> itemWishList(productId) }
             }
@@ -87,11 +95,14 @@ class ProductdetailFragment : Fragment() {
         viewModel.productInfo.observe(viewLifecycleOwner) { productInfoList ->
             productInfoList?.let {
                 bindData(it)
+                authorId = it.author.authorId
                 wishlist = it.product.wishlist
+                publisherId = it.supplier.supplier_id
             }
         }
         viewModelWishList.wishList.observe(viewLifecycleOwner) { wishlist ->
             sizeWishList = wishlist.wishlist.size
+//            Log.d("Size", wishlist.wishlist.toString())
         }
     }
 
@@ -124,13 +135,25 @@ class ProductdetailFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun bindData(productInfoList: ProductInfoList) {
         binding?.apply {
-
+            Glide.with(root)
+                .load(productInfoList.product.thumbnail)
+                .fitCenter()
+                .into(imagePro)
+            textName.text = productInfoList.product.name
+            rating.rating = productInfoList.product.ratingLevel.toFloat()
+            textRatingLevel.text = productInfoList.product.ratingLevel.toString()
             textNum.text =
                 resources.getString(R.string.quantity) + " " + (productInfoList.product.quantity - productInfoList.product.quantitySold)
+            textMa.text =
+                resources.getString(R.string.productId) + " " + productInfoList.product.productId
+            textDescription.text = productInfoList.product.description
             textPrice.text =
                 formatMoney.formatMoney(productInfoList.product.price.toDouble().toLong())
-
-
+            textNameAuthor.text = " " + setAuthorName(productInfoList.author.authorName)
+            textNcc.text =
+                resources.getString(R.string.supplier) + " " + productInfoList.supplier.supplier_name
+            readmore.text = resources.getString(R.string.readmore)
+            textPublish.text = productInfoList.supplier.supplier_name
             val wishListPre = MySharedPreferences.getInt("wishlist", -1)
             val productIdPre = MySharedPreferences.getInt("productId", -1)
             if (wishListPre != -1 && productIdPre == productInfoList.product.productId) {
@@ -152,5 +175,42 @@ class ProductdetailFragment : Fragment() {
             }
             loadingProgressBar.cancel()
         }
+    }
+
+    private fun readmoreInfo() {
+        var check = true
+        binding?.apply {
+            val layoutParams = constraintImageProduct.layoutParams as ConstraintLayout.LayoutParams
+            readmore.setOnClickListener {
+                if (check) {
+                    layoutParams.dimensionRatio = "3:2"
+                    constraintImageProduct.layoutParams = layoutParams
+                    val newMaxLines = Integer.MAX_VALUE
+                    textDescription.maxLines = newMaxLines
+                    check = false
+                    readmore.text = "Collapse."
+                } else {
+                    layoutParams.dimensionRatio = "6:5"
+                    constraintImageProduct.layoutParams = layoutParams
+                    val newMaxLines = 3
+                    textDescription.maxLines = newMaxLines
+                    readmore.text = "Read more."
+                    check = true
+                }
+            }
+        }
+    }
+
+    private fun setAuthorName(name: String): SpannableString {
+        val content = SpannableString(name)
+        content.setSpan(UnderlineSpan(), 0, name.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val underlineColor = resources.getColor(R.color.colorAuth)
+        content.setSpan(
+            ForegroundColorSpan(underlineColor),
+            0,
+            name.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return content
     }
 }
