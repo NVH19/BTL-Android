@@ -1,7 +1,7 @@
 package com.example.bookshop.data.api
 
-import com.example.BookShopApp.data.model.Cart
-import com.example.BookShopApp.data.model.CartItem
+import com.example.bookshop.data.model.Cart
+import com.example.bookshop.data.model.CartItem
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.reponse.product.ProductNewList

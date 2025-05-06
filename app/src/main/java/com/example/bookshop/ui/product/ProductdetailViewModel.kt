@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.BookShopApp.data.repository.cart.CartRepositoryImp
+import com.example.bookshop.data.repository.cart.CartRepositoryImp
 import com.example.bookshop.data.model.response.Message
 import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.data.repository.product.ProductRepository
