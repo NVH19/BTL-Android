@@ -179,6 +179,39 @@ interface ApiInterface {
         @Path("item_id") itemId: Int,
     ): Response<Message>?
 
+    @GET("shoppingCart")
+    suspend fun getAllCart(): Response<Cart>?
+
+    @GET("products/new")
+    suspend fun getSearchNewProduct(): Response<ProductNewList>
+
+    @GET("products/search")
+    suspend fun getSearchProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("filter_type") filterType: Int,
+        @Query("price_sort_order") priceSortOrder: String,
+    ): Response<ProductList>
+
+    @GET("products/category/search")
+    suspend fun getSearchCategoryProducts(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+        @Query("category_id") categoryId: Int,
+    ): Response<ProductList>
+
+    @FormUrlEncoded
+    @POST("shoppingCart/add")
+    suspend fun addProduct2Cart(@Field("product_id") productId: Int): Response<List<CartItem>>
+
+    @GET("products/search")
+    suspend fun getSearchHistory(
+        @Query("query_string") queryString: String,
+    ): Response<ProductList>
     @FormUrlEncoded
     @POST("orders")
     suspend fun createOrder(
