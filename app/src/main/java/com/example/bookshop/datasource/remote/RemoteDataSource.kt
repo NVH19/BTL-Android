@@ -1,20 +1,14 @@
-package com.example.bookshop.datasource
+package com.example.bookshop.datasource.remote
 
 import com.example.bookshop.data.api.RetrofitClient
-import com.example.bookshop.data.model.CategoryList
-import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductNewList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
-import com.example.bookshop.data.model.request.RatingRequest
+import com.example.bookshop.data.model.*
+import com.example.bookshop.data.model.response.*
+import com.example.bookshop.data.model.response.author.AuthorFamousList
+import com.example.bookshop.data.model.response.author.AuthorInfor
+import com.example.bookshop.data.model.response.product.*
+import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.datasource.IDataSource
 import retrofit2.Response
 
 class RemoteDataSource() : IDataSource {
@@ -82,32 +76,6 @@ class RemoteDataSource() : IDataSource {
         return RetrofitClient.apiService.getProductsBySupplier(id, limit, page, description_length)
     }
 
-    override suspend fun getSearchNewProduct(): Response<ProductNewList>? {
-        return RetrofitClient.apiService.getSearchNewProduct()
-    }
-
-    override suspend fun getSearchProducts(
-        limit: Int,
-        page: Int,
-        description_length: Int,
-        query_string: String,
-        filter_type: Int,
-        price_sort_order: String,
-    ): Response<ProductList>? {
-        return RetrofitClient.apiService.getSearchProducts(
-            limit,
-            page,
-            description_length,
-            query_string,
-            filter_type,
-            price_sort_order,
-        )
-    }
-
-    override suspend fun getSearchHistory(query_string: String): Response<ProductList> {
-        return RetrofitClient.apiService.getSearchHistory(query_string)
-    }
-
     override suspend fun getAllCategory(): Response<CategoryList>? {
         return RetrofitClient.apiService.getAllCategory()
     }
@@ -131,4 +99,23 @@ class RemoteDataSource() : IDataSource {
     override suspend fun getHotAuthor(): Response<AuthorFamousList>? {
         return RetrofitClient.apiService.getHotAuthor()
     }
+
+    override suspend fun addItemToWishList(productId: Int): Response<Message>? {
+        return RetrofitClient.apiService.addItemToWishList(productId)
+    }
+
+    override suspend fun removeItemInWishList(productId: Int): Response<Message> {
+        return RetrofitClient.apiService.removeItemInWishList(productId)
+    }
+
+    override suspend fun getWishList(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+    ): Response<WishlistResponse>? {
+        return RetrofitClient.apiService.getWishList(limit, page, description_length)
+    }
+
+
+
 }
