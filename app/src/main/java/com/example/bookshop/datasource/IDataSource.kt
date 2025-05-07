@@ -1,5 +1,7 @@
 package com.example.bookshop.datasource
 
+import com.example.bookshop.data.model.Cart
+import com.example.bookshop.data.model.CartItem
 import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer

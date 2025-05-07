@@ -4,6 +4,8 @@ import com.example.bookshop.data.model.Cart
 import com.example.bookshop.data.model.CartItem
 import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.response.*
+import com.example.bookshop.data.model.CategoryList
+import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.reponse.product.ProductNewList
 import com.example.bookshop.data.model.response.author.AuthorFamousList
 import com.example.bookshop.data.model.response.author.AuthorInfor
