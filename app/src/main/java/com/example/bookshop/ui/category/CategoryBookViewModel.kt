@@ -10,7 +10,7 @@ import com.example.bookshop.data.repository.product.ProductRepository
 import com.example.bookshop.data.repository.product.ProductRepositoryImp
 import com.example.bookshop.data.repository.search.SearchRepository
 import com.example.bookshop.data.repository.search.SearchRepositoryImp
-import com.example.bookshop.datasource.RemoteDataSource
+import com.example.bookshop.datasource.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

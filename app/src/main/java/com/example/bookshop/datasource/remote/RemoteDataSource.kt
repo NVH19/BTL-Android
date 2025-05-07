@@ -1,4 +1,4 @@
-package com.example.bookshop.datasource
+package com.example.bookshop.datasource.remote
 
 import com.example.bookshop.data.model.Cart
 import com.example.bookshop.data.model.CartItem
@@ -18,6 +18,7 @@ import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.datasource.IDataSource
 import retrofit2.Response
 
 class RemoteDataSource() : IDataSource {
