@@ -24,12 +24,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookshop.R
 import com.example.bookshop.data.model.Product
-import com.example.bookshop.data.model.reponse.HistorySearch
+import com.example.bookshop.data.model.response.HistorySearch
 import com.example.bookshop.databinding.FragmentSearchBinding
 import com.example.bookshop.datasource.local.db.entity.ProductDb
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.HistorySeachAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.productdetail.ProductdetailFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.MySharedPreferences
 
@@ -157,6 +158,7 @@ class SearchFragment : Fragment() {
                 }
                 adapter.setData(bookList)
                 binding?.loadingLayout?.root?.visibility = View.INVISIBLE
+                navToProductDetail()
             }
         }
         viewModel.historyList.observe(viewLifecycleOwner) {
@@ -429,6 +431,12 @@ class SearchFragment : Fragment() {
                         productName = product?.name.toString()
                     )
                 )
+
+                val bundle = Bundle()
+                bundle.putString("bookId", product?.product_id.toString())
+                parentFragmentManager.beginTransaction().replace(R.id.container,
+                    ProductdetailFragment().apply { arguments = bundle })
+                    .addToBackStack("SearchFragment").commit()
             }
         })
     }
@@ -470,6 +478,20 @@ class SearchFragment : Fragment() {
                 if (list.size == 0) {
                     binding?.textRemoveAll?.visibility = View.INVISIBLE
                 }
+            }
+        })
+    }
+
+    private fun navToProductDetail() {
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val product = adapter.getBook(position)
+                val bundle = Bundle()
+                bundle.putString("bookId", product.product_id.toString())
+                parentFragmentManager.beginTransaction().replace(R.id.container,
+                    ProductdetailFragment().apply { arguments = bundle })
+                    .addToBackStack("SearchFragment").commit()
+                pastPage = currentPage
             }
         })
     }
