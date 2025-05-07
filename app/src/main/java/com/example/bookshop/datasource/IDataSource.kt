@@ -1,29 +1,15 @@
 package com.example.bookshop.datasource
 
-<<<<<<<<< Temporary merge branch 1
-import com.example.BookShopApp.data.model.Cart
-import com.example.BookShopApp.data.model.CartItem
+
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.Message
-import com.example.bookshop.data.model.reponse.RatingResponse
-import com.example.bookshop.data.model.reponse.author.AuthorFamousList
-import com.example.bookshop.data.model.reponse.author.AuthorInfor
-import com.example.bookshop.data.model.reponse.product.BannerList
-import com.example.bookshop.data.model.reponse.product.BookInHomeList
-import com.example.bookshop.data.model.reponse.product.ProductInfoList
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
-=========
 import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.response.*
 import com.example.bookshop.data.model.response.RatingResponse
 import com.example.bookshop.data.model.response.author.AuthorFamousList
 import com.example.bookshop.data.model.response.author.AuthorInfor
 import com.example.bookshop.data.model.response.product.*
-import com.example.bookshop.data.model.request.*
->>>>>>>>> Temporary merge branch 2
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import retrofit2.Response
 
@@ -33,6 +19,29 @@ interface IDataSource {
     suspend fun register(email: String, name: String, password: String): Response<AuthResponse>
     suspend fun getCustomer(): Response<Customer>?
     suspend fun createRatingOrder(ratingRequest:List<RatingRequest>):Response<Message>
+
+    suspend fun getSearchNewProduct(): Response<ProductNewList>?
+    suspend fun getSearchProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        filter_type: Int,
+        price_sort_order: String,
+    ): Response<ProductList>?
+
+    suspend fun getSearchCategoryProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        categoryId: Int,
+    ): Response<ProductList>?
+
+    suspend fun getSearchHistory(
+        query_string: String,
+    ): Response<ProductList>
+
     suspend fun getAllRatingByBook(
         bookId: Int,
         limit:Int,
@@ -59,14 +68,12 @@ interface IDataSource {
         description_length: Int,
     ): Response<ProductList>?
 
-<<<<<<<<< Temporary merge branch 1
     suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
     suspend fun getAllCart(): Response<Cart>?
     suspend fun addAllItemToCart(): Response<Message>
     suspend fun deleteAllItemCart(): Response<Message>
     suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
     suspend fun removeItemInCart(itemId: Int): Response<Message>?
-=========
     suspend fun addItemToWishList(productId: Int): Response<Message>?
     suspend fun removeItemInWishList(productId: Int): Response<Message>
     suspend fun getWishList(
@@ -74,8 +81,6 @@ interface IDataSource {
         page: Int,
         description_length: Int,
     ): Response<WishlistResponse>?
->>>>>>>>> Temporary merge branch 2
-
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
     suspend fun getNewBook(): Response<BookInHomeList>?

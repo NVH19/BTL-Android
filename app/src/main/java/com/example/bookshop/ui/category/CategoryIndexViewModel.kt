@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bookshop.data.model.Category
 import com.example.bookshop.data.repository.category.CategoryRepository
 import com.example.bookshop.data.repository.category.CategoryRepositoryImp
-import com.example.bookshop.datasource.RemoteDataSource
+import com.example.bookshop.datasource.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

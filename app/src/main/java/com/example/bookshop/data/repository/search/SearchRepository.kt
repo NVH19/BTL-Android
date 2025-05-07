@@ -1,7 +1,7 @@
 package com.example.bookshop.data.repository.search
 
-import com.example.bookshop.data.model.reponse.product.ProductList
-import com.example.bookshop.data.model.reponse.product.ProductNewList
+import com.example.bookshop.data.model.response.product.ProductNewList
+import com.example.bookshop.data.model.response.product.ProductList
 import retrofit2.Response
 
 interface SearchRepository {
@@ -14,6 +14,9 @@ interface SearchRepository {
         priceSortOrder: String,
     ): Response<ProductList>?
 
+    suspend fun getSearchHistory(
+        queryString: String,
+    ): Response<ProductList>
 
     suspend fun getSearchNewProduct(): Response<ProductNewList>?
     suspend fun getSearchCategoryProducts(

@@ -43,6 +43,49 @@ class RemoteDataSource() : IDataSource {
     override suspend fun createRatingOrder(ratingRequest: List<RatingRequest>): Response<Message> {
         return RetrofitClient.apiService.createRatingOrder(ratingRequest)
     }
+
+    override suspend fun getSearchNewProduct(): Response<ProductNewList>? {
+        return RetrofitClient.apiService.getSearchNewProduct()
+    }
+
+    override suspend fun getSearchProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        filter_type: Int,
+        price_sort_order: String,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchProducts(
+            limit,
+            page,
+            description_length,
+            query_string,
+            filter_type,
+            price_sort_order,
+        )
+    }
+
+    override suspend fun getSearchCategoryProducts(
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+        categoryId: Int,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchCategoryProducts(
+            limit,
+            page,
+            description_length,
+            query_string,
+            categoryId,
+        )
+    }
+
+    override suspend fun getSearchHistory(query_string: String): Response<ProductList> {
+        return RetrofitClient.apiService.getSearchHistory(query_string)
+    }
+
     override suspend fun getProductsBanner(): Response<BannerList>? {
         return RetrofitClient.apiService.getProductBanner()
     }
@@ -74,6 +117,33 @@ class RemoteDataSource() : IDataSource {
         description_length: Int,
     ): Response<ProductList>? {
         return RetrofitClient.apiService.getProductsBySupplier(id, limit, page, description_length)
+    }
+
+    override suspend fun addCartItem(productId: Int): Response<List<CartItem>>? {
+        return RetrofitClient.apiService.addProduct2Cart(productId)
+    }
+
+    override suspend fun getAllCart(): Response<Cart>? {
+        return RetrofitClient.apiService.getAllCart()
+    }
+
+    override suspend fun addAllItemToCart(): Response<Message> {
+        return RetrofitClient.apiService.addAllItem2Cart()
+    }
+
+    override suspend fun deleteAllItemCart(): Response<Message> {
+        return RetrofitClient.apiService.deleteAllItemCart()
+    }
+
+    override suspend fun changeProductQuantityInCart(
+        itemId: Int,
+        quantity: Int,
+    ): Response<Message>? {
+        return RetrofitClient.apiService.changeProductQuantityInCart(itemId, quantity)
+    }
+
+    override suspend fun removeItemInCart(itemId: Int): Response<Message>? {
+        return RetrofitClient.apiService.removeItemInCart(itemId)
     }
 
     override suspend fun getAllCategory(): Response<CategoryList>? {

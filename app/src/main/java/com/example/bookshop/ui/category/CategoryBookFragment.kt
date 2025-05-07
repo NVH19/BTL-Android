@@ -20,7 +20,6 @@ import com.example.bookshop.R
 import com.example.bookshop.data.model.Product
 import com.example.bookshop.databinding.FragmentCategoryBookBinding
 import com.example.bookshop.ui.adapter.BookAdapter
-import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.utils.ItemSpacingDecoration
 
 class CategoryBookFragment : Fragment() {
