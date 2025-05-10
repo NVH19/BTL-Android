@@ -135,23 +135,25 @@ class LoginFragment : Fragment() {
                         it1
                     )
                 }
-            } else if (it?.loginResponse.customer.status.equals("inactive")) {
+            } else if (it?.loginResponse?.customer?.status.equals("inactive")) {
                 AlertMessageViewer.showAlertDialogMessage(
                     requireContext(),
                     "Tài khoản của bạn đã bị khóa!"
                 )
             } else {
                 navToMainScreen()
-                MySharedPreferences.putAccessToken(it.loginResponse.accessToken)
-                val expiresIn = it.loginResponse.expiresIn.split(" ")[0].toLong()
-                MySharedPreferences.putLogInTime("ExpiresIn", expiresIn * 60 * 60 * 1000)
-                MySharedPreferences.putLogInTime("FirstTime", System.currentTimeMillis())
-                RetrofitClient.updateAccessToken(it.loginResponse.accessToken)
-                it.loginResponse.customer.customerId?.let { idCustomer ->
-                    MySharedPreferences.putInt(
-                        "idCustomer",
-                        idCustomer
-                    )
+                it.loginResponse?.let { response ->
+                    MySharedPreferences.putAccessToken(response.accessToken)
+                    val expiresIn = response.expiresIn.split(" ")[0].toLong()
+                    MySharedPreferences.putLogInTime("ExpiresIn", expiresIn * 60 * 60 * 1000)
+                    MySharedPreferences.putLogInTime("FirstTime", System.currentTimeMillis())
+                    RetrofitClient.updateAccessToken(response.accessToken)
+                    response.customer.customerId?.let { idCustomer ->
+                        MySharedPreferences.putInt(
+                            "idCustomer",
+                            idCustomer
+                        )
+                    }
                 }
             }
         }

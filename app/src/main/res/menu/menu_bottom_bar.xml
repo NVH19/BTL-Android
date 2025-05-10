@@ -17,5 +17,4 @@
         android:id="@+id/menu_cart"
         android:icon="@drawable/ic_cart_bar"
         android:title="@string/cart"/>
-
 </menu>

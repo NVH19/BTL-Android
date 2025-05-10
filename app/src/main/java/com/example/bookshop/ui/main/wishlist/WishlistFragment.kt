@@ -24,6 +24,7 @@ import com.example.bookshop.ui.product.ProductdetailViewModel
 //import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.format.FormatMoney
+import com.example.bookshop.ui.profile.ProfileFragment
 
 class WishlistFragment : Fragment() {
 
@@ -70,12 +71,12 @@ class WishlistFragment : Fragment() {
                 }, 1000)
             }
             swipeRefresh.setColorSchemeColors(resources.getColor(R.color.teal_200))
-//            imageProfile.setOnClickListener {
-//                parentFragmentManager.beginTransaction()
-//                    .replace(R.id.container, ProfileFragment())
-//                    .addToBackStack("WishListFragment")
-//                    .commit()
-//            }
+            imageProfile.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, ProfileFragment())
+                    .addToBackStack("WishListFragment")
+                    .commit()
+            }
             textAddToBag.setOnClickListener {
                 viewModel.addAllItemToCart()
                 Handler().postDelayed({

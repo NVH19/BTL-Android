@@ -65,7 +65,7 @@ class LoginViewModel : ViewModel() {
     fun checkLogin(user: AuthResponse) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = authRepository.login(user.customer.email, user.customer.password)
-            if (response?.isSuccessful == true) {
+            if (response.isSuccessful) {
                 _loginResponse.postValue(
                     AuthState(
                         Error(message = "Đăng nhập thành công!"),
@@ -73,7 +73,7 @@ class LoginViewModel : ViewModel() {
                     )
                 )
             } else {
-                val errorBody = response?.errorBody()?.string()
+                val errorBody = response.errorBody()?.string()
                 val gson = Gson()
                 val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
                 _loginResponse.postValue(

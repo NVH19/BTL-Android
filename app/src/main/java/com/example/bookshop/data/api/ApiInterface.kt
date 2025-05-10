@@ -17,13 +17,17 @@ import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -172,4 +176,75 @@ interface ApiInterface {
         @Query("query_string") queryString: String,
         @Query("category_id") categoryId: Int,
     ): Response<ProductList>
+
+    @GET("/receiver/{receiver_id}")
+    suspend fun getReceiverInfo(@Path("receiver_id") receiverId: Int): Response<Receiver>
+
+    @FormUrlEncoded
+    @PUT("/receiver")
+    suspend fun updateReceiverInfo(
+        @Field("receiver_name") receiverName: String,
+        @Field("receiver_phone") receiverPhone: String,
+        @Field("receiver_address") receiverAddress: String,
+        @Field("receiverId") receiverId: Int,
+        @Field("isDefault") isDefault: Int,
+        @Field("isSelected") isSelected: Int,
+    ): Response<Message>
+
+    @FormUrlEncoded
+    @POST("/receiver")
+    suspend fun addReceiverInfo(
+        @Field("receiver_name") receiverName: String,
+        @Field("receiver_phone") receiverPhone: String,
+        @Field("receiver_address") receiverAddress: String,
+        @Field("isDefault") isDefault: Int,
+    ): Response<Message>
+
+    @PUT("/receiver/defaultIsSelected")
+    suspend fun updateReceiverDefaultIsSelected(): Response<Message>
+
+    @GET("/receiver/default")
+    suspend fun getReceiverDefault(): Response<Receiver>
+
+    @GET("/receiver/selected")
+    suspend fun getReceiverSelected(): Response<Receiver>
+
+    @GET("/receiver")
+    suspend fun getReceivers(): Response<ReceiverResponse>
+
+    @DELETE("/receiver")
+    suspend fun removeReceiver(@Query("receiverId") receiverId: Int): Response<Message>
+
+    @FormUrlEncoded
+    @PUT("customers")
+    suspend fun updateCustomer(
+        @Field("name") name: String,
+        @Field("address") address: String,
+        @Field("date_of_birth") dateofbirth: String,
+        @Field("gender") gender: String,
+        @Field("mob_phone") mobphone: String,
+    ): Response<Customer>
+
+    @FormUrlEncoded
+    @PUT("customers")
+    suspend fun updateOrderInfor(
+        @Field("name") name: String,
+        @Field("address") address: String,
+        @Field("mob_phone") mobphone: String,
+    ): Response<Customer>
+
+    @FormUrlEncoded
+    @POST("customers/changePass")
+    suspend fun changePassword(
+        @Field("email") email: String,
+        @Field("old_password") old_password: String,
+        @Field("new_password") new_password: String,
+    ): Response<Customer>
+
+    @Multipart
+    @POST("customers/update/avatar")
+    suspend fun changeAvatar(
+        @Part image: MultipartBody.Part,
+    ): Response<Customer>
+
 }

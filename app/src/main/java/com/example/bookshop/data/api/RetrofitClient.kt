@@ -40,4 +40,6 @@ object RetrofitClient {
     val apiService: ApiInterface by lazy {
         retrofit.create(ApiInterface::class.java)
     }
+
+
 }

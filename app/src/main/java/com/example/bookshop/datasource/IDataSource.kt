@@ -13,11 +13,12 @@ import com.example.bookshop.data.model.response.author.AuthorInfor
 import com.example.bookshop.data.model.response.product.*
 import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 
 interface IDataSource {
 
-    suspend fun login(email: String, password: String): Response<AuthResponse>?
+    suspend fun login(email: String, password: String): Response<AuthResponse>
     suspend fun forgotPassword(email: String): Response<Message>
     suspend fun register(email: String, name: String, password: String): Response<AuthResponse>
     suspend fun getCustomer(): Response<Customer>?
@@ -88,4 +89,49 @@ interface IDataSource {
         query_string: String,
         categoryId: Int,
     ): Response<ProductList>?
+
+    suspend fun updateCustomer(
+        name: String,
+        address: String,
+        dob: String,
+        gender: String,
+        mob_phone: String,
+    ): Response<Customer>?
+
+    suspend fun updateOrderInfor(
+        name: String,
+        address: String,
+        mob_phone: String,
+    ): Response<Customer>?
+
+    suspend fun changePassword(
+        email: String, old_password: String,
+        new_password: String,
+    ): Response<Customer>?
+
+    suspend fun changeAvatar(image: MultipartBody.Part): Response<Customer>?
+
+    suspend fun getReceiverInfo(receiverId: Int): Response<Receiver>
+    suspend fun addReceiverInfo(
+        receiverName: String,
+        receiverPhone: String,
+        receiverAddress: String,
+        isDefault: Int,
+    ): Response<Message>
+
+    suspend fun updateReceiverInfo(
+        receiverName: String,
+        receiverPhone: String,
+        receiverAddress: String,
+        receiverId: Int,
+        isDefault: Int,
+        isSelected: Int,
+    ): Response<Message>
+
+    suspend fun getReceiverDefault(): Response<Receiver>
+    suspend fun getReceiverSelected(): Response<Receiver>
+
+    suspend fun getReceivers(): Response<ReceiverResponse>
+    suspend fun updateReceiverDefaultIsSelected(): Response<Message>
+    suspend fun removeReceiver(receiverId: Int): Response<Message>
 }

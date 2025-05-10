@@ -1,12 +1,11 @@
 package com.example.bookshop.datasource.remote
 
-import com.example.bookshop.data.model.Cart
-import com.example.bookshop.data.model.CartItem
+import com.example.bookshop.data.model.*
 import com.example.bookshop.data.api.RetrofitClient
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.data.model.reponse.product.ProductNewList
-import com.example.bookshop.data.model.response.Message
+import com.example.bookshop.data.model.response.*
 import com.example.bookshop.data.model.response.RatingResponse
 import com.example.bookshop.data.model.response.author.AuthorFamousList
 import com.example.bookshop.data.model.response.author.AuthorInfor
@@ -19,11 +18,12 @@ import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
 import com.example.bookshop.datasource.IDataSource
+import okhttp3.MultipartBody
 import retrofit2.Response
 
 class RemoteDataSource() : IDataSource {
 
-    override suspend fun login(email: String, password: String): Response<AuthResponse>? {
+    override suspend fun login(email: String, password: String): Response<AuthResponse> {
         return RetrofitClient.apiService.login(email, password)
     }
 
@@ -188,4 +188,88 @@ class RemoteDataSource() : IDataSource {
         )
     }
 
+    override suspend fun addReceiverInfo(
+        receiverName: String,
+        receiverPhone: String,
+        receiverAddress: String,
+        isDefault: Int,
+    ): Response<Message> {
+        return RetrofitClient.apiService.addReceiverInfo(
+            receiverName,
+            receiverPhone,
+            receiverAddress,
+            isDefault,
+        )
+    }
+
+    override suspend fun updateReceiverInfo(
+        receiverName: String,
+        receiverPhone: String,
+        receiverAddress: String,
+        receiverId: Int,
+        isDefault: Int,
+        isSelected:Int,
+    ): Response<Message> {
+        return RetrofitClient.apiService.updateReceiverInfo(
+            receiverName,
+            receiverPhone,
+            receiverAddress,
+            receiverId,
+            isDefault,
+            isSelected,
+        )
+    }
+
+    override suspend fun getReceiverDefault(): Response<Receiver> {
+        return RetrofitClient.apiService.getReceiverDefault()
+    }
+
+    override suspend fun getReceiverSelected(): Response<Receiver> {
+        return RetrofitClient.apiService.getReceiverSelected()
+    }
+
+    override suspend fun getReceivers(): Response<ReceiverResponse> {
+        return RetrofitClient.apiService.getReceivers()
+    }
+
+    override suspend fun updateReceiverDefaultIsSelected(): Response<Message> {
+        return RetrofitClient.apiService.updateReceiverDefaultIsSelected()
+    }
+    override suspend fun removeReceiver(receiverId: Int): Response<Message> {
+        return RetrofitClient.apiService.removeReceiver(receiverId)
+    }
+
+    override suspend fun updateCustomer(
+        name: String,
+        address: String,
+        dob: String,
+        gender: String,
+        mob_phone: String,
+    ): Response<Customer>? {
+        return RetrofitClient.apiService.updateCustomer(name, address, dob, gender, mob_phone)
+    }
+
+    override suspend fun updateOrderInfor(
+        name: String,
+        address: String,
+        mob_phone: String,
+    ): Response<Customer>? {
+        return RetrofitClient.apiService.updateOrderInfor(name, address, mob_phone)
+    }
+
+    override suspend fun changePassword(
+        email: String,
+        old_password: String,
+        new_password: String,
+    ): Response<Customer>? {
+        return RetrofitClient.apiService.changePassword(email, old_password, new_password)
+    }
+
+    override suspend fun changeAvatar(image: MultipartBody.Part): Response<Customer>? {
+        return RetrofitClient.apiService.changeAvatar(image)
+    }
+
+    override suspend fun getReceiverInfo(receiverId: Int): Response<Receiver> {
+        return RetrofitClient.apiService.getReceiverInfo(receiverId)
+    }
 }

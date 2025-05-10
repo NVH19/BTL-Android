@@ -66,7 +66,7 @@ class SignUpViewModel : ViewModel() {
                     user.customer.name,
                     user.customer.password
                 )
-                if (response.isSuccessful == true) {
+                if (response.isSuccessful) {
                     _registerResponse.postValue(
                         AuthState(
                             Error(message = "Đăng kí thành công!"),
@@ -75,14 +75,23 @@ class SignUpViewModel : ViewModel() {
                     )
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    val gson = Gson()
-                    val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
-                    _registerResponse.postValue(
-                        AuthState(
-                            Error(message = errorResponse.error.message),
-                            null
+                    if (errorBody != null) {
+                        val gson = Gson()
+                        val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
+                        _registerResponse.postValue(
+                            AuthState(
+                                Error(message = errorResponse.error.message),
+                                null
+                            )
                         )
-                    )
+                    } else {
+                        _registerResponse.postValue(
+                            AuthState(
+                                Error(message = "Đã xảy ra lỗi khi đăng ký"),
+                                null
+                            )
+                        )
+                    }
                     Log.d("RegisterNull", "NULL")
                 }
             }

@@ -19,6 +19,7 @@ import com.example.bookshop.ui.adapter.CartAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.format.FormatMoney
+import com.example.bookshop.ui.profile.ProfileFragment
 
 class CartFragment : Fragment() {
 
@@ -56,10 +57,10 @@ class CartFragment : Fragment() {
                 }, 1000)
             }
             swipeRefresh.setColorSchemeColors(resources.getColor(R.color.teal_200))
-//            imageProfile.setOnClickListener {
-//                parentFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment())
-//                    .addToBackStack("CartFragment").commit()
-//            }
+            imageProfile.setOnClickListener {
+                parentFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment())
+                    .addToBackStack("CartFragment").commit()
+            }
             textDeleteCart.setOnClickListener {
                 viewModel.deleteAllItemCart()
                 Handler().postDelayed({

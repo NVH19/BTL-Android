@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.R
 import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
@@ -63,6 +64,13 @@ class ProductdetailFragment : Fragment() {
         binding?.apply {
             imageLeft.setOnClickListener {
                 parentFragmentManager.popBackStack()
+            }
+            imageAccount.setOnClickListener {
+                val profileFragment = ProfileFragment()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, profileFragment)
+                    .addToBackStack("productFragment")
+                    .commit()
             }
             textAdditemtocart.setOnClickListener {
                 val str = textNum.text.toString().split(" ")
