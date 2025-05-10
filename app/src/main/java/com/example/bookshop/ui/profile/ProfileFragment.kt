@@ -14,6 +14,7 @@ import com.example.bookshop.R
 import com.example.bookshop.data.model.Customer
 import com.example.bookshop.databinding.FragmentProfileBinding
 import com.example.bookshop.databinding.LayoutAlertBinding
+import com.example.bookshop.ui.order.orderhistory.OrderHistoryFragment
 import com.example.bookshop.ui.profile.receiver.receiverinfo.ReceiverInfoFragment
 import com.example.bookshop.ui.profile.changepass.ChangePassFragment
 import com.example.bookshop.ui.profile.profilesignin.ProfileSignInFragment
@@ -105,6 +106,11 @@ class ProfileFragment : Fragment() {
             linearReceiverAddress.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.container, ReceiverInfoFragment()).addToBackStack("profile")
+                    .commit()
+            }
+            linearMyOrder.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, OrderHistoryFragment()).addToBackStack("profile")
                     .commit()
             }
             linearFeedback.setOnClickListener {
