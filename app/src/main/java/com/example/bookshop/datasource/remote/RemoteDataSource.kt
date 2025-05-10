@@ -17,6 +17,7 @@ import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.data.model.response.order.OrderList
 import com.example.bookshop.datasource.IDataSource
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -271,5 +272,9 @@ class RemoteDataSource() : IDataSource {
 
     override suspend fun getReceiverInfo(receiverId: Int): Response<Receiver> {
         return RetrofitClient.apiService.getReceiverInfo(receiverId)
+    }
+
+    override suspend fun getOrderHistory(): Response<OrderList>? {
+        return RetrofitClient.apiService.getOrderHistory()
     }
 }

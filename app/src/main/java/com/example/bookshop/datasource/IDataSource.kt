@@ -13,6 +13,7 @@ import com.example.bookshop.data.model.response.author.AuthorInfor
 import com.example.bookshop.data.model.response.product.*
 import com.example.bookshop.data.model.request.*
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.data.model.response.order.OrderList
 import okhttp3.MultipartBody
 import retrofit2.Response
 
@@ -134,4 +135,6 @@ interface IDataSource {
     suspend fun getReceivers(): Response<ReceiverResponse>
     suspend fun updateReceiverDefaultIsSelected(): Response<Message>
     suspend fun removeReceiver(receiverId: Int): Response<Message>
+
+    suspend fun getOrderHistory(): Response<OrderList>?
 }

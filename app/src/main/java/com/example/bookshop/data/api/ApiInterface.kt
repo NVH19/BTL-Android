@@ -17,6 +17,7 @@ import com.example.bookshop.data.model.response.product.ProductsByAuthor
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.response.WishlistResponse
 import com.example.bookshop.data.model.response.auth.AuthResponse
+import com.example.bookshop.data.model.response.order.OrderList
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -247,4 +248,6 @@ interface ApiInterface {
         @Part image: MultipartBody.Part,
     ): Response<Customer>
 
+    @GET("orders")
+    suspend fun getOrderHistory(): Response<OrderList>
 }
