@@ -156,6 +156,15 @@ interface ApiInterface {
         @Path("item_id") itemId: Int,
     ): Response<Message>?
 
+    @FormUrlEncoded
+    @POST("orders")
+    suspend fun createOrder(
+        @Field("cart_id") cartId: String,
+        @Field("shipping_id") shippingId: Int,
+        @Field("receiver_id") receiverId: Int,
+        @Field("payment_id") paymentId: Int,
+    ): Response<Message>
+
     @GET("products/search")
     suspend fun getSearchProducts(
         @Query("limit") limit: Int,

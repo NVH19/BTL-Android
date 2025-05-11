@@ -122,6 +122,17 @@ class RemoteDataSource() : IDataSource {
         return RetrofitClient.apiService.getHotBook()
     }
 
+    override suspend fun createOrder(
+        cartId: String,
+        shippingId: Int,
+        receiverId: Int,
+        paymentId: Int,
+    ): Response<Message> {
+        return RetrofitClient.apiService.createOrder(
+            cartId, shippingId, receiverId, paymentId
+        )
+    }
+
     override suspend fun getAuthor(authorId: Int): Response<AuthorInfor>? {
         return RetrofitClient.apiService.getAuthor(authorId)
     }

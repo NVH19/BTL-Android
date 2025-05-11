@@ -63,6 +63,12 @@ interface IDataSource {
     suspend fun getHotCategory(): Response<CategoryList>?
     suspend fun getNewBook(): Response<BookInHomeList>?
     suspend fun getHotBook(): Response<BookInHomeList>?
+    suspend fun createOrder(
+        cartId: String,
+        shippingId: Int,
+        receiverId: Int,
+        paymentId: Int,
+    ): Response<Message>
 
     suspend fun getAuthor(authorId: Int): Response<AuthorInfor>?
     suspend fun getHotAuthor(): Response<AuthorFamousList>?

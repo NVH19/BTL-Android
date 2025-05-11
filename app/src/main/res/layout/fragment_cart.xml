@@ -109,5 +109,19 @@
             app:layout_constraintStart_toStartOf="@id/text_total"
             app:layout_constraintTop_toBottomOf="@id/text_total" />
 
+        <TextView
+            android:id="@+id/text_check_out"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_checkout"
+            android:padding="15dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="@string/order"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
