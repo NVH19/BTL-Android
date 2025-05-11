@@ -69,6 +69,23 @@ class RemoteDataSource() : IDataSource {
     ): Response<ProductsByAuthor>? {
         return RetrofitClient.apiService.getProductsByAuthor(id, limit, page, description_length)
     }
+
+    override suspend fun getSearchAuthorProducts(
+        authorId: Int,
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchAuthorProducts(
+            authorId,
+            limit,
+            page,
+            description_length,
+            query_string,
+        )
+    }
+
     override suspend fun getProductsByCategory(
         id: Int,
         limit: Int,

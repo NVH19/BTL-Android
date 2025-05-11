@@ -50,6 +50,14 @@ interface IDataSource {
         description_length: Int,
     ): Response<ProductList>?
 
+    suspend fun getSearchAuthorProducts(
+        authorId: Int,
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+    ): Response<ProductList>?
+
 
     suspend fun addItemToWishList(productId: Int): Response<Message>?
     suspend fun removeItemInWishList(productId: Int): Response<Message>

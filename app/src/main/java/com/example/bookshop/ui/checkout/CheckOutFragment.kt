@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookshop.R
-//import com.example.bookshop.data.api.apizalopay.CreateOrder
 import com.example.bookshop.databinding.FragmentCheckOutBinding
 import com.example.bookshop.ui.adapter.BookListAdapter
 import com.example.bookshop.ui.main.cart.CartViewModel
@@ -30,10 +29,6 @@ import com.example.bookshop.ui.profile.receiver.receiverinfo.ReceiverInfoViewMod
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.LoadingProgressBar
 import com.example.bookshop.utils.format.FormatMoney
-//import vn.zalopay.sdk.Environment
-//import vn.zalopay.sdk.ZaloPayError
-//import vn.zalopay.sdk.ZaloPaySDK
-//import vn.zalopay.sdk.listeners.PayOrderListener
 
 class CheckOutFragment : Fragment() {
 
@@ -60,8 +55,6 @@ class CheckOutFragment : Fragment() {
     ): View? {
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        // ZaloPay SDK Init
-//        ZaloPaySDK.init(2554, Environment.SANDBOX)
         binding = FragmentCheckOutBinding.inflate(layoutInflater, container, false)
         return binding?.root
     }

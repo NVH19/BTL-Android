@@ -72,6 +72,15 @@ interface ApiInterface {
     @GET("products/banner")
     suspend fun getProductBanner(): Response<BannerList>
 
+    @GET("products/author/search")
+    suspend fun getSearchAuthorProducts(
+        @Query("author_id") authorId: Int,
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+    ): Response<ProductList>
+
     @GET("products/{product_id}")
     suspend fun getProductInfo(@Path("product_id") product_id: Int): Response<ProductInfoList>
 
