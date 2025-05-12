@@ -1,5 +1,6 @@
 package com.example.bookshop.data.repository.order
 
+import com.example.bookshop.data.model.OrderDetail
 import com.example.bookshop.data.model.response.Message
 import com.example.bookshop.data.model.response.order.OrderList
 import com.example.bookshop.datasource.IDataSource
@@ -22,5 +23,13 @@ class OrderRepositoryImp(private val dataSource: IDataSource) : OrderRepository 
             receiverId,
             paymentId
         )
+    }
+
+    override suspend fun getOrderDetail(orderId: Int): Response<OrderDetail>? {
+        return dataSource.getOrderDetail(orderId)
+    }
+
+    override suspend fun updateOrderStatus(orderId: Int, orderStatusId: Int): Response<Message> {
+        return dataSource.updateOrderStatus(orderId, orderStatusId)
     }
 }

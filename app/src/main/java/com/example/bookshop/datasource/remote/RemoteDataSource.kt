@@ -305,4 +305,12 @@ class RemoteDataSource() : IDataSource {
     override suspend fun getOrderHistory(): Response<OrderList>? {
         return RetrofitClient.apiService.getOrderHistory()
     }
+
+    override suspend fun getOrderDetail(orderId: Int): Response<OrderDetail>? {
+        return RetrofitClient.apiService.getOrderDetail(orderId)
+    }
+
+    override suspend fun updateOrderStatus(orderId: Int, orderStatusId: Int): Response<Message> {
+        return RetrofitClient.apiService.updateOrderStatus(orderId, orderStatusId)
+    }
 }

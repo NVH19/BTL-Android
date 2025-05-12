@@ -268,4 +268,13 @@ interface ApiInterface {
 
     @GET("orders")
     suspend fun getOrderHistory(): Response<OrderList>
+
+    @GET("orders/{orderId}")
+    suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<OrderDetail>
+
+    @PUT("orders/status")
+    suspend fun updateOrderStatus(
+        @Query("orderId") orderId: Int,
+        @Query("orderStatusId") orderStatusId: Int,
+    ): Response<Message>
 }

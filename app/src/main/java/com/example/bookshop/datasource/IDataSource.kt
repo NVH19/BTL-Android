@@ -67,6 +67,8 @@ interface IDataSource {
         description_length: Int,
     ): Response<WishlistResponse>?
 
+    suspend fun getOrderDetail(orderId: Int): Response<OrderDetail>?
+    suspend fun updateOrderStatus(orderId: Int, orderStatusId: Int): Response<Message>
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
     suspend fun getNewBook(): Response<BookInHomeList>?
