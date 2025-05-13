@@ -21,6 +21,7 @@ import com.example.bookshop.data.model.Product
 import com.example.bookshop.databinding.FragmentCategoryBookBinding
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.product.ProductdetailFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
 
 class CategoryBookFragment : Fragment() {
@@ -58,6 +59,7 @@ class CategoryBookFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = BookAdapter(false)
         initViewModel()
+        navToProductDetail()
         val categoryId = arguments?.getString("categoryId")?.toInt()
         val categoryName = arguments?.getString("categoryName")
         categoryId?.let {
@@ -153,6 +155,21 @@ class CategoryBookFragment : Fragment() {
                 }
             })
         }
+    }
+    private fun navToProductDetail() {
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val productFragment = ProductdetailFragment()
+                val product = adapter.getBook(position)
+                val bundle = Bundle()
+                bundle.putString("bookId", product.product_id.toString())
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, productFragment.apply { arguments = bundle })
+                    .addToBackStack("CategoryBookFragment")
+                    .commit()
+                pastPage = currentPage
+            }
+        })
     }
 
     private fun initViewModel() {

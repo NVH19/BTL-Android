@@ -113,12 +113,6 @@ class BookListAdapter : RecyclerView.Adapter<BookListAdapter.ViewHolder>() {
                     onItemClickListener?.onItemClick(position)
                 }
             }
-//            binding.imageCart.setOnClickListener {
-//                val position = adapterPosition
-//                if (position != RecyclerView.NO_POSITION) {
-//                    addItemToCart?.onItemClick(position)
-//                }
-//            }
             binding.textQuantitySold.text =
                 binding.root.resources.getString(R.string.sold) + " " + product.quantitySold
             binding.textQuantity.visibility = View.INVISIBLE

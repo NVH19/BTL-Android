@@ -42,6 +42,21 @@ class SearchRepositoryImp(private val dataSource: IDataSource) : SearchRepositor
             categroryId,
         )
     }
+    override suspend fun getSearchSupplierProducts(
+        supplierId: Int,
+        limit: Int,
+        page: Int,
+        descriptionLength: Int,
+        queryString: String,
+    ): Response<ProductList>? {
+        return dataSource.getSearchSupplierProducts(
+            supplierId,
+            limit,
+            page,
+            descriptionLength,
+            queryString
+        )
+    }
 
     override suspend fun getSearchAuthorProducts(
         authorId: Int,

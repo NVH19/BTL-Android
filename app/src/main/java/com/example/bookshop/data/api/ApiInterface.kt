@@ -108,6 +108,15 @@ interface ApiInterface {
         @Query("description_length") description_length: Int,
     ): Response<ProductList>
 
+    @GET("products/supplier/search")
+    suspend fun getSearchSupplierProducts(
+        @Query("supplier_id") supplierId: Int,
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+    ): Response<ProductList>
+
     @FormUrlEncoded
     @POST("wishlist/add")
     suspend fun addItemToWishList(@Field("product_id") productId: Int): Response<Message>

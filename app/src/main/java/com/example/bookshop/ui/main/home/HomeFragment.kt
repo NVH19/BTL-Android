@@ -20,6 +20,8 @@ import com.example.bookshop.ui.adapter.BannerAdapter
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.CategoryIndexAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.category.CategoryBookFragment
+import com.example.bookshop.ui.category.CategoryIndexFragment
 import com.example.bookshop.ui.product.ProductdetailFragment
 import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
@@ -71,6 +73,12 @@ class HomeFragment : Fragment() {
             imageProfile.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.container, ProfileFragment())
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+            imageNavCategory.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, CategoryIndexFragment())
                     .addToBackStack("HomeFragment")
                     .commit()
             }
@@ -148,7 +156,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun navToCategory() {
-
+        adapterHotCategory.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val category = adapterHotCategory.getCategory(position)
+                val bundle = Bundle()
+                bundle.putString("categoryId", category.categoryId.toString())
+                bundle.putString("categoryName", category.name)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, CategoryBookFragment().apply { arguments = bundle })
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        })
     }
 
     fun navToAuthorDetail() {
