@@ -86,7 +86,6 @@ class WishlistFragment : Fragment() {
             recyclerWishList.layoutManager = LinearLayoutManager(context)
             recyclerWishList.adapter = adapter
         }
-//        handleLoadData()
         handleSwipeItem()
     }
 
