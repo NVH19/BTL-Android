@@ -30,7 +30,7 @@ import com.example.bookshop.datasource.local.db.entity.ProductDb
 import com.example.bookshop.ui.adapter.BookAdapter
 import com.example.bookshop.ui.adapter.HistorySeachAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
-import com.example.bookshop.ui.productdetail.ProductdetailFragment
+import com.example.bookshop.ui.product.ProductdetailFragment
 import com.example.bookshop.utils.ItemSpacingDecoration
 import com.example.bookshop.utils.MySharedPreferences
 

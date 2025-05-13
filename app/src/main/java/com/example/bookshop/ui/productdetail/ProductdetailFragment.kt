@@ -4,14 +4,16 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.R
@@ -19,7 +21,6 @@ import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
 import com.example.bookshop.ui.main.wishlist.WishlistViewModel
 import com.example.bookshop.ui.author.AuthorFragment
-import com.example.bookshop.ui.main.wishlist.WishlistViewModel
 import com.example.bookshop.ui.publisher.PublisherFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.format.FormatMoney

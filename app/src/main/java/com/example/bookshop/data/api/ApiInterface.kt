@@ -6,7 +6,7 @@ import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.response.*
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.product.ProductNewList
+import com.example.bookshop.data.model.response.product.ProductNewList
 import com.example.bookshop.data.model.response.author.AuthorFamousList
 import com.example.bookshop.data.model.response.author.AuthorInfor
 import com.example.bookshop.data.model.response.product.BannerList
@@ -108,11 +108,6 @@ interface ApiInterface {
         @Query("description_length") description_length: Int,
     ): Response<ProductList>
 
-    @GET("products/search")
-    suspend fun getSearchHistory(
-        @Query("query_string") queryString: String,
-    ): Response<ProductList>
-
     @GET("products/supplier/search")
     suspend fun getSearchSupplierProducts(
         @Query("supplier_id") supplierId: Int,
@@ -179,34 +174,8 @@ interface ApiInterface {
         @Path("item_id") itemId: Int,
     ): Response<Message>?
 
-    @GET("shoppingCart")
-    suspend fun getAllCart(): Response<Cart>?
 
-    @GET("products/new")
-    suspend fun getSearchNewProduct(): Response<ProductNewList>
 
-    @GET("products/search")
-    suspend fun getSearchProducts(
-        @Query("limit") limit: Int,
-        @Query("page") page: Int,
-        @Query("description_length") descriptionLength: Int,
-        @Query("query_string") queryString: String,
-        @Query("filter_type") filterType: Int,
-        @Query("price_sort_order") priceSortOrder: String,
-    ): Response<ProductList>
-
-    @GET("products/category/search")
-    suspend fun getSearchCategoryProducts(
-        @Query("limit") limit: Int,
-        @Query("page") page: Int,
-        @Query("description_length") descriptionLength: Int,
-        @Query("query_string") queryString: String,
-        @Query("category_id") categoryId: Int,
-    ): Response<ProductList>
-
-    @FormUrlEncoded
-    @POST("shoppingCart/add")
-    suspend fun addProduct2Cart(@Field("product_id") productId: Int): Response<List<CartItem>>
 
     @GET("products/search")
     suspend fun getSearchHistory(

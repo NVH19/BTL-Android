@@ -6,7 +6,7 @@ import com.example.bookshop.data.model.*
 
 import com.example.bookshop.data.model.CategoryList
 import com.example.bookshop.data.model.Customer
-import com.example.bookshop.data.model.reponse.product.ProductNewList
+
 import com.example.bookshop.data.model.request.RatingRequest
 import com.example.bookshop.data.model.*
 import com.example.bookshop.data.model.response.*
@@ -27,24 +27,6 @@ interface IDataSource {
     suspend fun register(email: String, name: String, password: String): Response<AuthResponse>
     suspend fun getCustomer(): Response<Customer>?
     suspend fun createRatingOrder(ratingRequest:List<RatingRequest>):Response<Message>
-
-    suspend fun getSearchNewProduct(): Response<ProductNewList>?
-    suspend fun getSearchProducts(
-        limit: Int,
-        page: Int,
-        description_length: Int,
-        query_string: String,
-        filter_type: Int,
-        price_sort_order: String,
-    ): Response<ProductList>?
-
-    suspend fun getSearchCategoryProducts(
-        limit: Int,
-        page: Int,
-        description_length: Int,
-        query_string: String,
-        categoryId: Int,
-    ): Response<ProductList>?
 
     suspend fun getSearchHistory(
         query_string: String,
@@ -92,17 +74,6 @@ interface IDataSource {
         query_string: String,
     ): Response<ProductList>?
 
-    suspend fun getSearchHistory(
-        query_string: String,
-    ): Response<ProductList>
-
-
-    suspend fun addCartItem(productId: Int): Response<List<CartItem>>?
-    suspend fun getAllCart(): Response<Cart>?
-    suspend fun addAllItemToCart(): Response<Message>
-    suspend fun deleteAllItemCart(): Response<Message>
-    suspend fun changeProductQuantityInCart(itemId: Int, quantity: Int): Response<Message>?
-    suspend fun removeItemInCart(itemId: Int): Response<Message>?
     suspend fun addItemToWishList(productId: Int): Response<Message>?
     suspend fun removeItemInWishList(productId: Int): Response<Message>
     suspend fun getWishList(

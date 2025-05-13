@@ -14,7 +14,6 @@ import com.example.bookshop.data.repository.search.SearchRepositoryImp
 import com.example.bookshop.data.repository.search.historysearch.HistorySearchRepositoryImp
 import com.example.bookshop.datasource.remote.RemoteDataSource
 import com.example.bookshop.datasource.local.db.entity.ProductDb
-import com.example.bookshop.datasource.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
