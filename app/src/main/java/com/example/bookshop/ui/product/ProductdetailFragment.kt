@@ -20,6 +20,7 @@ import com.example.bookshop.R
 import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
 import com.example.bookshop.ui.main.wishlist.WishlistViewModel
+import com.example.bookshop.ui.publisher.PublisherFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.LoadingProgressBar
 import com.example.bookshop.utils.MySharedPreferences
@@ -95,6 +96,14 @@ class ProductdetailFragment : Fragment() {
             }
             imageFavorite.setOnClickListener {
                 productId?.let { productId -> itemWishList(productId) }
+            }
+            imageArrow.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("publisherId", publisherId.toString())
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, PublisherFragment().apply { arguments = bundle })
+                    .addToBackStack("ProductDetail")
+                    .commit()
             }
         }
     }

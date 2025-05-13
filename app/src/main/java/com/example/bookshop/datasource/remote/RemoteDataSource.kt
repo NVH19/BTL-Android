@@ -87,6 +87,22 @@ class RemoteDataSource() : IDataSource {
         return RetrofitClient.apiService.getProductsBySupplier(id, limit, page, description_length)
     }
 
+    override suspend fun getSearchSupplierProducts(
+        supplierId: Int,
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchSupplierProducts(
+            supplierId,
+            limit,
+            page,
+            description_length,
+            query_string
+        )
+    }
+
     override suspend fun addItemToWishList(productId: Int): Response<Message>? {
         return RetrofitClient.apiService.addItemToWishList(productId)
     }

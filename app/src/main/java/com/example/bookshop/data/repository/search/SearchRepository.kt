@@ -23,4 +23,11 @@ interface SearchRepository {
         queryString: String,
         categroryId: Int,
     ): Response<ProductList>?
+    suspend fun getSearchSupplierProducts(
+        supplierId: Int,
+        limit: Int,
+        page: Int,
+        descriptionLength: Int,
+        queryString: String,
+    ): Response<ProductList>?
 }
