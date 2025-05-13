@@ -104,6 +104,9 @@ class WishlistFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val itemWishList = adapter.getBook(position)
+                itemWishList.let {
+                    viewModelProduct.removeItemInWishList(it.product_id)
+                }
                 listItemWishList.removeAt(position)
                 adapter.removeData(position)
                 binding?.textPrice?.text = formatMoney.formatMoney(adapter.getTotalPrice().toLong())
@@ -113,23 +116,6 @@ class WishlistFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding?.recyclerWishList)
     }
 
-//    private fun handleLoadData() {
-//        binding?.apply {
-//            recyclerWishList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//                    lastPosition =
-//                        (recyclerWishList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-//                    totalPosition = adapter.itemCount
-//                    if (lastPosition != currentPosition && lastPosition == totalPosition - 3) {
-//                        currentPage++
-//                        viewModel.getWishList(10, currentPage, 100)
-//                        currentPosition = lastPosition
-//                    }
-//                }
-//            })
-//        }
-//    }
 
     private fun refreshData() {
         viewModel.getWishList(10, 1, 100)

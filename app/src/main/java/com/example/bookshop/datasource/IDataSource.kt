@@ -58,6 +58,14 @@ interface IDataSource {
         query_string: String,
     ): Response<ProductList>?
 
+    suspend fun getSearchAuthorProducts(
+        authorId: Int,
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+    ): Response<ProductList>?
+
 
     suspend fun addItemToWishList(productId: Int): Response<Message>?
     suspend fun removeItemInWishList(productId: Int): Response<Message>
@@ -67,10 +75,18 @@ interface IDataSource {
         description_length: Int,
     ): Response<WishlistResponse>?
 
+    suspend fun getOrderDetail(orderId: Int): Response<OrderDetail>?
+    suspend fun updateOrderStatus(orderId: Int, orderStatusId: Int): Response<Message>
     suspend fun getAllCategory(): Response<CategoryList>?
     suspend fun getHotCategory(): Response<CategoryList>?
     suspend fun getNewBook(): Response<BookInHomeList>?
     suspend fun getHotBook(): Response<BookInHomeList>?
+    suspend fun createOrder(
+        cartId: String,
+        shippingId: Int,
+        receiverId: Int,
+        paymentId: Int,
+    ): Response<Message>
 
     suspend fun getAuthor(authorId: Int): Response<AuthorInfor>?
     suspend fun getHotAuthor(): Response<AuthorFamousList>?

@@ -3,7 +3,6 @@ package com.example.bookshop.ui.order.orderhistory
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bookshop.R
 import com.example.bookshop.data.model.Order
 import com.example.bookshop.data.model.response.order.OrderHistory
 import com.example.bookshop.databinding.FragmentOrderHistoryBinding
+import com.example.bookshop.ui.adapter.OnItemClickListener
 import com.example.bookshop.ui.adapter.OrderHistoryAdapter
+import com.example.bookshop.ui.order.orderdetail.OrderDetailFragment
 import com.example.bookshop.utils.format.FormatDate
 import java.time.LocalDateTime
 
@@ -46,6 +48,7 @@ class OrderHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = OrderHistoryAdapter()
         initViewModel()
+        navToOrderDetail()
         binding?.apply {
             loadingLayout.root.visibility = View.VISIBLE
             viewModel.getOrderHistory()
@@ -89,6 +92,21 @@ class OrderHistoryFragment : Fragment() {
         })
     }
 
+    private fun navToOrderDetail() {
+        adapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val orderId = adapter.getOrder(position)?.orderId
+                val orderStatus = adapter.getOrder(position)?.orderStatus
+                val bundle = Bundle()
+                bundle.putString("orderId", orderId.toString())
+                bundle.putString("orderStatus", orderStatus)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, OrderDetailFragment().apply { arguments = bundle })
+                    .addToBackStack("Orderhistory")
+                    .commit()
+            }
+        })
+    }
 
 
 

@@ -19,6 +19,7 @@ import com.example.bookshop.ui.profile.ProfileFragment
 import com.example.bookshop.R
 import com.example.bookshop.data.model.response.product.ProductInfoList
 import com.example.bookshop.databinding.FragmentProductDetailBinding
+import com.example.bookshop.ui.author.AuthorFragment
 import com.example.bookshop.ui.main.wishlist.WishlistViewModel
 import com.example.bookshop.ui.publisher.PublisherFragment
 import com.example.bookshop.utils.AlertMessageViewer
@@ -70,6 +71,15 @@ class ProductdetailFragment : Fragment() {
                 val profileFragment = ProfileFragment()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.container, profileFragment)
+                    .addToBackStack("productFragment")
+                    .commit()
+            }
+            textNameAuthor.setOnClickListener {
+                val authorFragment = AuthorFragment()
+                val bundle = Bundle()
+                bundle.putString("authorId", authorId.toString())
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, authorFragment.apply { arguments = bundle })
                     .addToBackStack("productFragment")
                     .commit()
             }

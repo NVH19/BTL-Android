@@ -92,16 +92,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/image_cart"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:padding="7dp"-->
-    <!--        android:src="@drawable/ic_cart"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/text_quantity"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <TextView
         android:id="@+id/text_quantity_sold"
         android:layout_width="0dp"

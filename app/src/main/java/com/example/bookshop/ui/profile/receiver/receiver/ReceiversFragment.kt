@@ -1,4 +1,4 @@
-package com.example.BookShopApp.ui.profile.receiver.receiver
+package com.example.bookshop.ui.profile.receiver.receiver
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.view.ViewParent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.BookShopApp.ui.profile.receiver.receiver.ReceiversViewModel
 import com.example.bookshop.R
 import com.example.bookshop.data.model.Receiver
 import com.example.bookshop.databinding.FragmentReceiversBinding

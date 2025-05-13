@@ -17,6 +17,7 @@ import com.example.bookshop.R
 import com.example.bookshop.databinding.FragmentCartBinding
 import com.example.bookshop.ui.adapter.CartAdapter
 import com.example.bookshop.ui.adapter.OnItemClickListener
+import com.example.bookshop.ui.checkout.CheckOutFragment
 import com.example.bookshop.utils.AlertMessageViewer
 import com.example.bookshop.utils.format.FormatMoney
 import com.example.bookshop.ui.profile.ProfileFragment
@@ -82,20 +83,20 @@ class CartFragment : Fragment() {
                 if (cartItem.isEmpty()) {
                     textCartInfor.visibility = View.VISIBLE
                     textDeleteCart.visibility = View.INVISIBLE
-//                    textCheckOut.setOnClickListener {
-//                        AlertMessageViewer.showAlertDialogMessage(
-//                            requireContext(),
-//                            "Bạn chưa chọn sản phẩm nào để mua!"
-//                        )
-//                    }
+                    textCheckOut.setOnClickListener {
+                        AlertMessageViewer.showAlertDialogMessage(
+                            requireContext(),
+                            "Bạn chưa chọn sản phẩm nào để mua!"
+                        )
+                    }
                 } else {
                     textDeleteCart.visibility = View.VISIBLE
                     textCartInfor.visibility = View.INVISIBLE
-//                    textCheckOut.setOnClickListener {
-//                        parentFragmentManager.beginTransaction()
-//                            .replace(R.id.container, CheckOutFragment(), "CartFragment")
-//                            .addToBackStack("Cart").commit()
-//                    }
+                    textCheckOut.setOnClickListener {
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.container, CheckOutFragment(), "CartFragment")
+                            .addToBackStack("Cart").commit()
+                    }
                 }
             }
         }

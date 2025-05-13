@@ -69,6 +69,23 @@ class RemoteDataSource() : IDataSource {
     ): Response<ProductsByAuthor>? {
         return RetrofitClient.apiService.getProductsByAuthor(id, limit, page, description_length)
     }
+
+    override suspend fun getSearchAuthorProducts(
+        authorId: Int,
+        limit: Int,
+        page: Int,
+        description_length: Int,
+        query_string: String,
+    ): Response<ProductList>? {
+        return RetrofitClient.apiService.getSearchAuthorProducts(
+            authorId,
+            limit,
+            page,
+            description_length,
+            query_string,
+        )
+    }
+
     override suspend fun getProductsByCategory(
         id: Int,
         limit: Int,
@@ -136,6 +153,17 @@ class RemoteDataSource() : IDataSource {
 
     override suspend fun getHotBook(): Response<BookInHomeList>? {
         return RetrofitClient.apiService.getHotBook()
+    }
+
+    override suspend fun createOrder(
+        cartId: String,
+        shippingId: Int,
+        receiverId: Int,
+        paymentId: Int,
+    ): Response<Message> {
+        return RetrofitClient.apiService.createOrder(
+            cartId, shippingId, receiverId, paymentId
+        )
     }
 
     override suspend fun getAuthor(authorId: Int): Response<AuthorInfor>? {
@@ -292,5 +320,13 @@ class RemoteDataSource() : IDataSource {
 
     override suspend fun getOrderHistory(): Response<OrderList>? {
         return RetrofitClient.apiService.getOrderHistory()
+    }
+
+    override suspend fun getOrderDetail(orderId: Int): Response<OrderDetail>? {
+        return RetrofitClient.apiService.getOrderDetail(orderId)
+    }
+
+    override suspend fun updateOrderStatus(orderId: Int, orderStatusId: Int): Response<Message> {
+        return RetrofitClient.apiService.updateOrderStatus(orderId, orderStatusId)
     }
 }

@@ -72,6 +72,15 @@ interface ApiInterface {
     @GET("products/banner")
     suspend fun getProductBanner(): Response<BannerList>
 
+    @GET("products/author/search")
+    suspend fun getSearchAuthorProducts(
+        @Query("author_id") authorId: Int,
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
+        @Query("description_length") descriptionLength: Int,
+        @Query("query_string") queryString: String,
+    ): Response<ProductList>
+
     @GET("products/{product_id}")
     suspend fun getProductInfo(@Path("product_id") product_id: Int): Response<ProductInfoList>
 
@@ -164,6 +173,15 @@ interface ApiInterface {
     suspend fun removeItemInCart(
         @Path("item_id") itemId: Int,
     ): Response<Message>?
+
+    @FormUrlEncoded
+    @POST("orders")
+    suspend fun createOrder(
+        @Field("cart_id") cartId: String,
+        @Field("shipping_id") shippingId: Int,
+        @Field("receiver_id") receiverId: Int,
+        @Field("payment_id") paymentId: Int,
+    ): Response<Message>
 
     @GET("products/search")
     suspend fun getSearchProducts(
@@ -259,4 +277,13 @@ interface ApiInterface {
 
     @GET("orders")
     suspend fun getOrderHistory(): Response<OrderList>
+
+    @GET("orders/{orderId}")
+    suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<OrderDetail>
+
+    @PUT("orders/status")
+    suspend fun updateOrderStatus(
+        @Query("orderId") orderId: Int,
+        @Query("orderStatusId") orderStatusId: Int,
+    ): Response<Message>
 }
