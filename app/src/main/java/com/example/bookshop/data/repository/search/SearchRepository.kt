@@ -15,7 +15,7 @@ interface SearchRepository {
     ): Response<ProductList>?
 
     suspend fun getSearchNewProduct(): Response<ProductNewList>?
-    suspend fun getSearchHistory(
+    suspend fun getProductSuggestions(
         queryString: String,
     ): Response<ProductList>
     suspend fun getSearchCategoryProducts(

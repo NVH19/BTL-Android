@@ -178,7 +178,7 @@ interface ApiInterface {
 
 
     @GET("products/search")
-    suspend fun getSearchHistory(
+    suspend fun getProductSuggestions(
         @Query("query_string") queryString: String,
     ): Response<ProductList>
     @FormUrlEncoded

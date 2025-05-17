@@ -67,10 +67,10 @@ class SearchViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun getSearchHistory(queryString: String) {
+    fun getProductSuggestions(queryString: String) {
         job?.cancel()
         job=viewModelScope.launch(Dispatchers.IO) {
-            val response = searchRepository?.getSearchHistory(queryString)
+            val response = searchRepository?.getProductSuggestions(queryString)
             if (response?.isSuccessful == true) {
                 _productNameList.postValue(response.body()?.products)
             } else {

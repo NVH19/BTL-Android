@@ -92,11 +92,11 @@ class SearchFragment : Fragment() {
         val horizontalSpacing = resources.getDimensionPixelSize(R.dimen.horizontal_spacing)
         val verticalSpacing = resources.getDimensionPixelSize(R.dimen.vertical_spacing)
         handleSearch()
-        handleSearchLocal()
+        handleSearchSubmission()
         searchByQuery()
-        searchByNew()
-        searchBySelling()
-        searchByPrice()
+        filterByNew()
+        filterBySelling()
+        filterByPrice()
         refreshData()
         binding?.apply {
             recyclerHistorySearch.layoutManager = LinearLayoutManager(context)
@@ -170,7 +170,7 @@ class SearchFragment : Fragment() {
                 binding?.textRemoveAll?.visibility = View.VISIBLE
             }
             adapterHistory.setData(list)
-            searchLocalProduct()
+            setupSearchHistoryClickListener()
             clickRemoveHistory()
         }
         viewModel.productNameList.observe(viewLifecycleOwner) {
@@ -223,7 +223,7 @@ class SearchFragment : Fragment() {
                         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                         textTitleSearch.layoutParams = layoutParams
                     } else {
-                        viewModel.getSearchHistory(queryString)
+                        viewModel.getProductSuggestions(queryString)
                         textTitleSearch.visibility = View.INVISIBLE
                         layoutParams.height = 0
                         textTitleSearch.layoutParams = layoutParams
@@ -260,7 +260,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun handleSearchLocal() {
+    private fun handleSearchSubmission() {
         binding?.apply {
             editSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -304,7 +304,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchByNew() {
+    private fun filterByNew() {
         binding?.apply {
             textProductNew.setOnClickListener {
                 adapter.clearData()
@@ -322,7 +322,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchBySelling() {
+    private fun filterBySelling() {
         binding?.apply {
             textProdcutSelling.setOnClickListener {
                 adapter.clearData()
@@ -338,7 +338,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchByPrice() {
+    private fun filterByPrice() {
         binding?.apply {
             linearProductPrice.setOnClickListener {
                 adapter.clearData()
@@ -441,7 +441,7 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun searchLocalProduct() {
+    private fun setupSearchHistoryClickListener() {
         adapterHistory.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val productName = adapterHistory.getProductNameLocal(position)

@@ -28,7 +28,7 @@ interface IDataSource {
     suspend fun getCustomer(): Response<Customer>?
     suspend fun createRatingOrder(ratingRequest:List<RatingRequest>):Response<Message>
 
-    suspend fun getSearchHistory(
+    suspend fun getProductSuggestions(
         query_string: String,
     ): Response<ProductList>
 
